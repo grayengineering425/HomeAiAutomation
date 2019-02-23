@@ -1,0 +1,9 @@
+Experimental/data/
+Experimental/keyword_recognition/tmp/
+Experimental/keyword_recognition/.ipynb_checkpoints/
+Experimental/face_tracking/wider_face_train_bbx_gt.txt
+Experimental/facial_recognition/.ipynb_checkpoints/
+Experimental/facial_recognition/__pycache__/
+Experimental/facial_recognition/tmp/
+automation_web_app/GrayAutomationServer/GrayAutomationServer/obj/
+automation_web_app/GrayAutomationServer/GrayAutomationServer/bin/
