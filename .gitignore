@@ -5,6 +5,5 @@ Experimental/face_tracking/wider_face_train_bbx_gt.txt
 Experimental/facial_recognition/.ipynb_checkpoints/
 Experimental/facial_recognition/__pycache__/
 Experimental/facial_recognition/tmp/
-Experimental/facial_recognition/freeze_graph.py
 automation_web_app/GrayAutomationServer/GrayAutomationServer/obj/
 automation_web_app/GrayAutomationServer/GrayAutomationServer/bin/
