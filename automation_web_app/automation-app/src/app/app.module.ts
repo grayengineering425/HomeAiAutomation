@@ -1,12 +1,12 @@
-import { BrowserModule        } from '@angular/platform-browser';
-import { NgModule             } from '@angular/core';
-import { NgStyle, DatePipe    } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule     } from '@angular/common/http';
+import { BrowserModule          } from '@angular/platform-browser';
+import { NgModule               } from '@angular/core';
+import { HttpClientModule       } from '@angular/common/http';
 
-import { AppComponent         } from './app.component';
-import { LiveFeedComponent    } from './live-feed/live-feed.component';
-import { FrameDataService     } from './frame-data.service';
+import { AppComponent           } from './app.component';
+import { LiveFeedComponent      } from './live-feed/live-feed.component';
+import { FrameDataService       } from './frame-data.service';
+import { WorkerService          } from './worker.service' 
+import { ModelMain              } from './model/ModelMain'
 
 @NgModule({
   declarations: [
@@ -18,7 +18,9 @@ import { FrameDataService     } from './frame-data.service';
     HttpClientModule
   ],
   providers: [
-    FrameDataService
+        FrameDataService
+    ,   WorkerService
+    ,   ModelMain
   ],
   bootstrap: [AppComponent]
 })

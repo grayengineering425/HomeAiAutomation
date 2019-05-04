@@ -54,6 +54,18 @@
             }
           }
         },
+        "build-worker": {
+          "builder": "@angular-devkit/build-webpack:webpack",
+          "options": {
+            "webpackConfig": "./webpack.config.worker.js"
+          }
+        },
+        "dev-worker": {
+          "builder": "@angular-devkit/build-webpack:webpack",
+          "options": {
+            "webpackConfig": "./src/webpack.config.dev-worker.js"
+          }
+        },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GrayAutomationServer.Models;
+using Newtonsoft.Json;
 
 namespace GrayAutomationServer
 {
@@ -29,9 +30,12 @@ namespace GrayAutomationServer
 					.AllowCredentials());
 			});
 
-			services.AddDbContext<FrameContext>(opt =>
-				opt.UseInMemoryDatabase("FrameList"));
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddDbContext<RecordingContext>(opt => opt.UseInMemoryDatabase("RecordingList"));
+			
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options => {
+				options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+			});
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
