@@ -1,6 +1,9 @@
 import { Injectable               } from '@angular/core';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 
+const httpOptions = {
+	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class FrameDataService {
@@ -10,9 +13,12 @@ export class FrameDataService {
 
     constructor(private http: HttpClient) { this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' }); }
 
-    public get    (   ) { return this.http.get(this.accessPointUrl); }
-    public getById(id) { console.log(this.accessPointUrl + '/' + id); return this.http.get(this.accessPointUrl + '/' + id); }
-    //public add    (payload) { return this.http.post   (this.accessPointUrl,                     payload                   }
+    public get			(   )		{ return this.http.get(this.accessPointUrl);													}
+    public getById		(id)		{ return this.http.get(this.accessPointUrl + '/' + id);											}
+	public addRecording	(payload)	{ return this.http.post(this.accessPointUrl, payload);											}
+	public addFrame(id, frame) { console.log(JSON.stringify(frame)); return this.http.post(this.accessPointUrl + '/' + id, JSON.stringify(frame), httpOptions);	}
+
+
     //public remove (payload) { return this.http.delete (this.accessPointUrl + '/' + payload.id,                            }
     //public update (payload) { return this.http.put    (this.accessPointUrl + '/' + payload.id,  payload                   }
 }

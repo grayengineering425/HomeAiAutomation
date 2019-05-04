@@ -4,6 +4,9 @@ import { iFrameSource			} from '../sources/iFrameSource';
 import { FrameSourceSimulator	} from '../sources/FrameSourceSimulator';
 import { Subscription           } from 'rxjs';
 import { ModelMain              } from './ModelMain';
+import { Frame					} from '../data/Frame';
+import { BoundingBox			} from '../data/BoundingBox';
+import { formatDate				} from '@angular/common';
 
 export class ModelLive implements OnInit {
 	private recordings		: Array<any>;
@@ -42,7 +45,21 @@ export class ModelLive implements OnInit {
 	private onNewFrame(frameData: string): void
 	{
         this.currentFrame = frameData;
-        this.modelMain.onNewFrame(frameData);
+		this.modelMain.onNewFrame(frameData);
+
+		var frame	: Frame			= new Frame			();
+		var box		: BoundingBox	= new BoundingBox	();
+
+		box.x		= 0;
+		box.y		= 0;
+		box.height	= 0;
+		box.width	= 0;
+
+		frame.data		= frameData;
+		frame.timeStamp = formatDate(Date(), 'yyyy/MM/dd', 'en');
+		frame.boundingBoxes.push(box);
+
+		this.frameDataService.addFrame(1, frame).subscribe((data: any) => console.log(data));
 	}
 
 	setRecordingIndex(index)

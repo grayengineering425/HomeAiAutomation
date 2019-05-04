@@ -1,6 +1,6 @@
 export class ModelMain
 {
-    private run             : Array<string>;
+    private run: Array<string>;
 
     constructor()
     {
