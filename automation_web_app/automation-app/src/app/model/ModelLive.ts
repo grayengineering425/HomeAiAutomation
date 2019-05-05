@@ -1,4 +1,3 @@
-import { OnInit					} from '@angular/core';
 import { FrameDataService		} from '../frame-data.service'
 import { iFrameSource			} from '../sources/iFrameSource';
 import { FrameSourceSimulator	} from '../sources/FrameSourceSimulator';
@@ -8,34 +7,21 @@ import { Frame					} from '../data/Frame';
 import { BoundingBox			} from '../data/BoundingBox';
 import { formatDate				} from '@angular/common';
 
-export class ModelLive implements OnInit {
-	private recordings		: Array<any>;
-	private recordingIndex	: number;
-	private playing			: boolean;
-	private frameIndex		: number;
-	private currentFrame	: any;
-    private frameObserver   : Subscription;
-    private paused          : boolean;
+export class ModelLive {
+	private currentFrame	: Frame;
+    private frameObserver   : Subscription;             //TODO: is this actually needed, is calling get subscription enough or does it need to be cached as a subscription
+	private frameSource		: iFrameSource
+	private model			: ModelMain;
 
-	private frameSource     : iFrameSource
-
-	constructor(private frameDataService: FrameDataService, private modelMain: ModelMain)
+	constructor(frameDataService: FrameDataService)
     {
-        this.frameSource = new FrameSourceSimulator();						//TODO
-        this.frameObserver = this.frameSource.getSubscription().subscribe((frameData: any) => this.onNewFrame(frameData));
+        console.log("Constructing ModelLive");
 
-		frameDataService.get().subscribe((data: any) => this.recordings = data);
+		this.model = new ModelMain(frameDataService);
 
-        this.recordingIndex = 0;
-        this.frameIndex		= 0;
-		this.playing		= false;
-        this.paused         = false;
-
-		console.log("Constructing ModelLive");
+        this.frameSource	= new FrameSourceSimulator();
+        this.frameObserver	= this.frameSource.getSubscription().subscribe((frameData: any) => this.onNewFrame(frameData));
     }
-
-	ngOnInit()
-	{}
 
 	setPlaying() {
 		if (this.frameSource.isActive())	this.frameSource.stopFrames();
@@ -44,9 +30,6 @@ export class ModelLive implements OnInit {
 
 	private onNewFrame(frameData: string): void
 	{
-        this.currentFrame = frameData;
-		this.modelMain.onNewFrame(frameData);
-
 		var frame	: Frame			= new Frame			();
 		var box		: BoundingBox	= new BoundingBox	();
 
@@ -59,46 +42,12 @@ export class ModelLive implements OnInit {
 		frame.timeStamp = formatDate(Date(), 'yyyy/MM/dd', 'en');
 		frame.boundingBoxes.push(box);
 
-		this.frameDataService.addFrame(1, frame).subscribe((data: any) => console.log(data));
+        this.currentFrame = frame;
+        this.model.addFrame(frame);
 	}
 
-	setRecordingIndex(index)
-	{
-		if (index == this.recordingIndex	) return; else
-		if (index > this.recordings.length	) return; else
-
-		this.playing		= false;
-		this.frameIndex		= 0;
-		this.recordingIndex = index;
-	}
-
-	public getCurrentFrameData	()          { return this.currentFrame;           }
-    public getRecordings        ()          { return this.recordings;             }
-    public sourceActive         (): boolean { return this.frameSource.isActive(); }
-    public getSliderPercentage  (): number  { return this.frameSource.getFrameCount() == 0 ? 0 : this.frameSource.getCurrentIndex() / this.frameSource.getFrameCount(); }
-
-	getCurrentFrameTimeStamp()
-	{
-		if (!this.recordings) return Date();
-
-		return this.recordings[this.recordingIndex].frames[this.frameIndex].timeStamp;
-	}
-
-    private async startVideo() {
-        this.playing = true;
-        this.frameIndex = 0;
-
-        while (this.playing)
-        {
-            if (this.frameIndex >= this.recordings[this.recordingIndex].frames.length - 1) this.frameIndex = 0;
-            else this.frameIndex = this.frameIndex + 1;
-          
-			await this.delay(160);
-        }
-    }
-
-    private delay(ms: number)
-    {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+	public getCurrentFrameData	    ()          { return this.currentFrame ? this.currentFrame.data : "";		}
+    public sourceActive             (): boolean { return this.frameSource.isActive();							}
+    public getSliderPercentage      (): number  { return this.frameSource.getFrameCount() == 0 ? 0 : this.frameSource.getCurrentIndex() / this.frameSource.getFrameCount(); }
+    public getCurrentFrameTimeStamp (): string  { return this.currentFrame ? this.currentFrame.timeStamp : "";	}
 }

@@ -16,7 +16,7 @@ export class FrameDataService {
     public get			(   )		{ return this.http.get(this.accessPointUrl);													}
     public getById		(id)		{ return this.http.get(this.accessPointUrl + '/' + id);											}
 	public addRecording	(payload)	{ return this.http.post(this.accessPointUrl, payload);											}
-	public addFrame(id, frame) { console.log(JSON.stringify(frame)); return this.http.post(this.accessPointUrl + '/' + id, JSON.stringify(frame), httpOptions);	}
+	public addFrame(id, frame)		{ return this.http.post(this.accessPointUrl + '/' + id, JSON.stringify(frame), httpOptions);	}
 
 
     //public remove (payload) { return this.http.delete (this.accessPointUrl + '/' + payload.id,                            }

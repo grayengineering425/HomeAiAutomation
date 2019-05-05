@@ -12,18 +12,11 @@
                 </div>
             </div>
             <div class="timeBox">{{getTimeStamp()}}</div>
-            <div class="frameSliderBar" *ngIf='!sourceActive()'>
-                <div class="frameSlider"  [ngStyle]="{'left': getSliderPosition()}"></div>
-            </div>
+            <!-->div class="sliderRegion">
+                <div class="frameSlider" cdkDragLockAxis="x" cdkDragBoundary=".sliderRegion" cdkDrag ondragend="setFrameIndex($event)"></div>
+                <div class="frameSliderBar" *ngIf='!sourceActive()'></div>
+            </!--div-->
         </div>
-
-        <!--div class="interestFrameSlider">
-          <ul>
-            <li class="f" *ngFor="let recording of getRecordings()">
-              <div class="interestFrame"[ngStyle]="{'background-image': 'url(' + recording.frames[0].data + ')'}" (click)="changeRecordingIndex(recording.id - 1)"></div>
-            </li>
-          </ul>
-        </div-->
     </div>
-	<div class="cell cell-footer"   ></div>
+	<div class="cell cell-footer"></div>
 </div>

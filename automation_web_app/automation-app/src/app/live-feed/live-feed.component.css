@@ -79,13 +79,20 @@
   font-size: 12px;
 }
 
+.sliderRegion
+{
+    margin-top  : 47%;
+    margin-left : 8%;
+    width       : 90%;
+    height      : 1%;
+}
+
 .frameSliderBar
 {
     position:       relative;
-    margin-top:     48%;
-    margin-left:    8%;
-    width:          90%;
-    height:         1%;
+    bottom:         200%;
+    width:          100%;
+    height:         40%;
     background:     hotpink;
 }
 
@@ -94,10 +101,10 @@
     position:       relative;
     width:          20px;
     height:         20px;
-    bottom:         8px;
-    left:           20px;
+    /*bottom:         8px;*/
     border-radius:  10px;
     background:     red;
+    z-index:        1;
 }
 
 .interestFrameSlider
