@@ -4,4 +4,5 @@ export class BoundingBox
 	public y		: number;
 	public width	: number;
 	public height	: number;
+	public id		: number;
 }

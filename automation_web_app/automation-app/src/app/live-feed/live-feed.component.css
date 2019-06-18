@@ -1,10 +1,11 @@
 .viewPort 
 {
   margin:             auto;
-  margin-top:         5%;
+  margin-top:         0%;
   height:             480px;
   width:              720px;
   background-color:   #b200ff;
+  background-size:    cover;
 }
 
 .startStop {
@@ -122,14 +123,41 @@
   padding:          12px 12px 0px 0px;
 }
 
+.interestFrameContainer {
+    height: 120px;
+    width: 180px;
+    margin: 20px 0px 0px -55px;
+    background-color: white;
+}
 .interestFrame
 {
-  height:             96px;
-  width:              144px;
-  background-color:   coral;
+  opacity:            1;
+  height: 100%;
+  width: 100%;
   background-size:    cover;
+  transition:         .5s ease;
 }
 
+.middle
+{
+    transition      : .5s ease;
+    opacity         : 0;
+    position        : relative;
+    height          : 50px;
+    width           : 50px;
+    text-align      : center;
+    content         : url('./assets/hover_play.png');
+}
+
+.interestFrameContainer:hover .interestFrame
+{
+    opacity: 0.3;
+}
+
+.interestFrameContainer:hover .middle
+{
+    opacity: 1;
+}
 
 /*TODO add grids to their own css*/
 .container
@@ -140,8 +168,8 @@
 	grid-template-areas:	"header header"
 							"left main"
 							"footer footer";
-	grid-template-columns:	10% 90%;
-	grid-template-rows:		10% 80% 10%;
+	grid-template-columns:	15% 85%;
+	grid-template-rows:		15% 75% 10%;
     margin-top: -32px;
     margin-left: -32px;
 }

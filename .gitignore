@@ -1,3 +1,10 @@
+OpenCvPlayground/external/
+OpenCvPlayground/opencv/
+OpenCvPlayground/packages/
+OpenCvPlayground/x64/
+OpenCvPlayground/.vs/
+OpenCvPlayground/OpenCvPlayground/x64/
+OpenCvPlayground/OpenCvPlayground/Debug/
 Experimental/data/
 Experimental/keyword_recognition/tmp/
 Experimental/keyword_recognition/.ipynb_checkpoints/

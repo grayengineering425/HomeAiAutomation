@@ -1,6 +1,12 @@
 <div class="container">
-	<div class="cell cell-header"   ></div>
-	<div class="cell cell-sidebar"  ></div>
+	<div class="cell cell-header"></div>
+	<div class="cell cell-sidebar">
+        <div class="interestFrameContainer" *ngFor="let recording of getRecordings(); let i = index" [attr.data-index]="i" (click)="loadRecording(i)">
+            <div class="interestFrame" [ngStyle]="{'background-image': 'url(' + getFirstFrame(i) + ')'}">
+                <div class="middle"></div>
+            </div>
+        </div>
+    </div>
     
     <div class="cell cell-main">
         <div class="viewPort" [ngStyle]="{'background-image': 'url(' + getCurrentFrameData() + ')'}">
@@ -8,7 +14,8 @@
             <div class="dropdown">
                 <div class="dropbtn">Dropdown</div>
                 <div class="dropdown-content">
-                    <a href="#">Show Boxes</a>
+                    <a href="#"                         >Show Boxes  </a>
+                    <a href="#" *ngIf="isReview()" (click)="requestLive()" >Live        </a>
                 </div>
             </div>
             <div class="timeBox">{{getTimeStamp()}}</div>

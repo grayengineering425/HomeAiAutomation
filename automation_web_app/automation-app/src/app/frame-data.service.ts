@@ -13,8 +13,9 @@ export class FrameDataService {
 
     constructor(private http: HttpClient) { this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' }); }
 
-    public get			(   )		{ return this.http.get(this.accessPointUrl);													}
+	public getRecordings(  )		{ return this.http.get(this.accessPointUrl);													}
     public getById		(id)		{ return this.http.get(this.accessPointUrl + '/' + id);											}
+
 	public addRecording	(payload)	{ return this.http.post(this.accessPointUrl, payload);											}
 	public addFrame(id, frame)		{ return this.http.post(this.accessPointUrl + '/' + id, JSON.stringify(frame), httpOptions);	}
 
