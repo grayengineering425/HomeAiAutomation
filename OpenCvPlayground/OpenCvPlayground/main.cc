@@ -1,3 +1,5 @@
+#define _NO_ASYNCRTIMP
+
 #include <iostream>
 #include <string>
 #include <thread>

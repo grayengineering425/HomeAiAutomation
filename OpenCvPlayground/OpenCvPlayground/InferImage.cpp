@@ -34,10 +34,10 @@ void InferImage::resize(int width, int height)
 	cv::resize(data, data, cv::Size(width, height));
 }
 
-size_t		InferImage::numFaces		() const { return boundingBoxes.size(); }
-cv::Mat		InferImage::getData			() const { return data;					}
-int			InferImage::getDimensions	() const { return dims;					}
-std::string InferImage::getBase64Data	() const { return base64Representation; }
+size_t		InferImage::numFaces		() const	{ return boundingBoxes.size();	}
+cv::Mat		InferImage::getData			() const	{ return data;					}
+int			InferImage::getDimensions	() const	{ return dims;					}
+std::string InferImage::getBase64Data	()			{ if (base64Representation.empty()){ setBase64(); } return base64Representation; }
 
 
 //----------------------------------------------------------------------------------------------------------------------------//

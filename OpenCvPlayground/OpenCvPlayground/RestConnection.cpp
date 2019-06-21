@@ -1,3 +1,6 @@
+#define _NO_ASYNCRTIMP
+
+
 #include "RestConnection.h"
 #include "InferImage.h"
 
@@ -10,6 +13,8 @@ using namespace web::http;                  // Common HTTP functionality
 using namespace web::http::client;          // HTTP client features
 using namespace concurrency::streams;       // Asynchronous streams
 using namespace web::json;					// JSON library
+
+#pragma comment (lib, "crypt32")
 
 RestConnection::RestConnection()
 	:	apiString			(L"https://localhost:44357/api/Recording/")
@@ -29,7 +34,7 @@ void RestConnection::postRecording()
 	auto postData = json::value::object();
 	auto response = client->request(methods::POST, L"", postData).get();
 
-	if (response.status_code() == status_codes::OK)
+	if (response.status_code() == status_codes::Created)
 	{
 		auto parsedResponse = response.extract_json().get();
 

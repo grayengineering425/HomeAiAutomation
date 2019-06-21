@@ -39,9 +39,9 @@ public:
 
 	size_t				numFaces		() const;
 	cv::Mat				getData			() const;
-	std::string			getBase64Data	() const;
 	int					getDimensions	() const;
 	std::vector<Box>	getBoxes		() const;
+	std::string			getBase64Data();
 
 	void addBox(Box&  box);
 
