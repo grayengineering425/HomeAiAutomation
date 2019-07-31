@@ -1,0 +1,8 @@
+<div class="row" *ngFor="let row of getRecordingPreviews(); let i=index">
+    <div class="column" *ngFor="let recording of row; let j = index" [ngStyle]="{'background-image': 'url(' + getFirstFrameData(i, j) + ')'}" (click)="loadRecording(i, j)"></div>
+</div>
+
+<div class="mask" *ngIf="isMaskShowing()">
+    <app-live-feed live="false"></app-live-feed>
+    <div class="exitButton" (click)="exitActiveRecording()"></div>
+</div>

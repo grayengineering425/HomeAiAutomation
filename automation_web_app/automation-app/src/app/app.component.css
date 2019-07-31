@@ -1,0 +1,56 @@
+.header
+{
+	position:			fixed;
+	width:				100%;
+	background-color:	dimgray;
+	box-shadow:			0px 2px 2px 2px rgba(158, 158, 158, 0.3);
+	padding:			30px;
+	margin-left:		-32px;
+	margin-top:			-32px;
+}
+
+.dropdown
+{
+	right:				5%;
+	position:			absolute;
+	left:				10px;
+	top:				10px;
+	height:				40px;
+	width:				40px;
+	content:			url('./live-feed/assets/burger.png');
+	transition:			0.2s;
+}
+
+.dropdown:hover
+{
+	filter: invert(70%);
+}
+
+#sidebar
+{
+	position:			fixed;
+	width:				0px;
+	height:				100%;
+	top:				60px;
+	background-color:	#111;
+	margin-left:		-32px;
+	transition:			0.5s;
+	opacity:			0.95;
+	z-index:			1;
+	overflow-x:			hidden;
+}
+
+#sidebar a
+{
+	padding:			16px 8px 8px 32px;
+	text-decoration:	none;
+	font-size:			25px;
+	color:				#818181;
+	display:			block;
+	transition:			0.3s;
+}
+
+#sidebar a:hover
+{
+	color: #f1f1f1;
+}

@@ -1,6 +1,8 @@
-import { Component, OnInit	} from '@angular/core';
-import { ModelLive, State	} from '../model/ModelLive'
-import { WebsocketService	} from '../sources/websocket.service'
+import { Component, ViewChild, Input	} from '@angular/core';
+import { ModelLive						} from '../model/ModelLive'
+import { WebsocketService				} from '../sources/websocket.service'
+import { BoundingBox					} from '../data/BoundingBox';
+import { Recording						} from '../data/Recording'
 
 @Component({
   selector:     'app-live-feed',
@@ -9,48 +11,62 @@ import { WebsocketService	} from '../sources/websocket.service'
   providers:	[WebsocketService, ModelLive]
 })
 
-export class LiveFeedComponent implements OnInit {
+export class LiveFeedComponent
+{
+	@ViewChild	("currentFace") currentFace;
+	@Input		() live: boolean;
+
 	constructor(private model: ModelLive)
     {
         console.log('Constructing LiveFeedComponent');
+
+		this.model.setLive(this.live);
     }
-      
-    ngOnInit()
-	{
-	}
 
     public setPlaying(): void
 	{
         this.model.setPlaying();
 	}
 
-	public loadRecording(index: number): void
-	{
-		this.model.loadRecording(index);
-	}
-
 	public requestLive(): void
 	{
-		this.model.requestLive();
+		this.model.setLive(true);
 	}
 
-	public getCurrentFrameData	()				: string		{ return					this.model.getCurrentFrameData();		}
-	public getTimeStamp			()				: Date			{ return this.convertDate(	this.model.getCurrentFrameTimeStamp());	}
-    public sourceActive         ()				: boolean		{ return                    this.model.sourceActive();              }
-	public getRecordings		()				: Array<any>	{ return					this.model.getRecordings();				}
-	public getFirstFrame		(index: number)	: string		{ return					this.model.getFirstFrame(index);		}
-	public isReview				()				: boolean		{ return					this.model.getState() == State.Review;	}	
-
-	public getSliderPosition(): string
-    {
-		//      var percentage      = this.model.getSliderPercentage();
-		//      var pixelsFromLeft  = percentage * 648.0;					//TODO: can we get this value from the DOM?
-		//      var pixelString		= pixelsFromLeft.toString() + "px";
-
-		//return pixelString;
-
-		return "0.0 px";
+	public requestBoxes(): void
+	{
+		this.model.requestBoxes();
 	}
+
+	public requestFace(index: number): void
+	{
+		console.log(index);
+		this.model.setShowFace(true);
+		
+		var box				= this.model.getBoxByIndex(index)
+		var currentImage	= this.model.getCurrentFrameData();
+
+		console.log(box);
+
+		var context = this.currentFace.nativeElement.getContext("2d");
+
+		context.fillStyle = currentImage;
+		context.fillRect(0, 0, 200, 200)
+	}
+
+	public setCurrentRecording(recording: Recording)
+	{
+		if (!recording) console.log("bad recording");
+		console.log("setting recording");
+		this.model.setCurrentRecording(recording);
+	}
+
+	public getCurrentFrameData	()				: string				{ return					this.model.getCurrentFrameData();		}
+	public getTimeStamp			()				: Date					{ return this.convertDate(	this.model.getCurrentFrameTimeStamp());	}
+    public sourceActive         ()				: boolean				{ return                    this.model.sourceActive();              }
+	public getBoxes				()				: Array<BoundingBox>	{ return					this.model.getBoxes();					}
+	public showFace				()				: boolean				{ return					this.model.showFace();					}
+	public isLive				()				: boolean				{ return					this.live;								}
 
 	private convertDate(date): Date
 	{

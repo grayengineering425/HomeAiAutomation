@@ -1,4 +1,6 @@
 import { iFrameSource		} from './iFrameSource';
+import { Frame				} from '../data/Frame'
+import { BoundingBox		} from '../data/BoundingBox'
 import { WebsocketService	} from "./websocket.service";
 import { Subject			} from 'rxjs';
 import { map				} from 'rxjs/operators';
@@ -7,12 +9,14 @@ import { map				} from 'rxjs/operators';
 const URL = "ws://127.0.0.1:9300";
 
 export interface Message {
-	message: string;
+    boundingBoxes:	Array<any>;
+    data:           string;
+    timeStamp:      string;
 }
 
 export class FrameSourceSocket extends iFrameSource
 {
-	private frameStream : Subject<string>;
+	private frameStream : Subject<Frame>;
 
 	constructor(private wsService: WebsocketService) {
 		super();
@@ -24,11 +28,18 @@ export class FrameSourceSocket extends iFrameSource
 
 	public startFrames(): void
 	{
-		this.frameStream = <Subject<string>>this.wsService.connect(URL).pipe(
+		this.frameStream = <Subject<Frame>>this.wsService.connect(URL).pipe(
 			map(
-				(response: MessageEvent): string => {
+				(response: MessageEvent): Frame => 
+				{
 					let data = JSON.parse(response.data);
-					return "data:image/jpg;base64," + data.message;
+
+					var newFrame = new Frame();
+					newFrame.data = "data:image/png;base64," + data.data;
+
+					newFrame.timeStamp = data.timeStamp;
+
+					return newFrame;
 				}
 			)
 		);
@@ -42,5 +53,5 @@ export class FrameSourceSocket extends iFrameSource
 		this.active = false;
     }
 
-    public getSubscription(): Subject<string> { return this.frameStream; }
+    public getSubscription(): Subject<Frame> { return this.frameStream; }
 }

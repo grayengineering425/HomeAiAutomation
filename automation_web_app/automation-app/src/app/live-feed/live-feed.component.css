@@ -1,72 +1,24 @@
-.viewPort 
+.mainArea
 {
-  margin:             auto;
-  margin-top:         0%;
-  height:             480px;
-  width:              720px;
-  background-color:   #b200ff;
-  background-size:    cover;
+	position:			fixed;
+	width:				100%;
+	height:				100%;
+	margin-left:		-32px;
+	margin-top:			29px;
 }
 
-.startStop {
-	position:	relative;
-	top:		91%;
-	left:		2%;
-	height:		30px;
-	width:		30px;
-	content:	url('./assets/play_pause.png');
-}
-
-.dropbtn
+.viewPort
 {
-   content:        	url('./assets/burger.png');
-   height: 			30px;
-   width: 			30px;
-}
-
-.dropdown
-{
-  position: 		    relative;
-  right: 			    45%;
-  bottom: 				30px;
-  display: 			    inline-block;
-}
-
-.dropdown-content
-{
-  display: 			    none;
-  position: 		    absolute;
-  background-color:		#f9f9f9;
-  min-width: 		    160px;
-  box-shadow: 			0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 			    1;
-}
-
-.dropdown-content a
-{
-  color: 			    black;
-  padding: 			    12px 16px;
-  text-decoration: 		none;
-  display: 			    block;
-  font-size:            12px;
-}
-
-.dropdown-content a:hover
-{
-	background-color: #f1f1f1
-}
-
-.dropdown:hover .dropdown-content {
-	display: 		      block;
-}
-
-.dropdown:hover .dropbtn {
-	filter:          invert(100%);
-}
-
-.startStop:hover
-{
-	filter:          invert(100%);
+	margin:				0;
+	position:			absolute;
+	top:				50%;
+	left:				50%;
+	transform:			translate(-50%, -50%);
+	height:				70%;
+	width:				60%;
+	margin-top:			-2%;
+	background-color:	gray;
+	background-size:	cover;
 }
 
 .timeBox
@@ -80,124 +32,140 @@
   font-size: 12px;
 }
 
-.sliderRegion
+.viewPortMenu
 {
-    margin-top  : 47%;
-    margin-left : 8%;
-    width       : 90%;
-    height      : 1%;
-}
-
-.frameSliderBar
-{
-    position:       relative;
-    bottom:         200%;
-    width:          100%;
-    height:         40%;
-    background:     hotpink;
-}
-
-.frameSlider
-{
-    position:       relative;
-    width:          20px;
-    height:         20px;
-    /*bottom:         8px;*/
-    border-radius:  10px;
-    background:     red;
-    z-index:        1;
-}
-
-.interestFrameSlider
-{
-  margin:           auto;
-  height:           120px;
-  width:            850px;
-  background-color: aqua;
-}
-
-.f
-{
-  display:          inline-block;
-  list-style-type:  none;
-  padding:          12px 12px 0px 0px;
-}
-
-.interestFrameContainer {
-    height: 120px;
-    width: 180px;
-    margin: 20px 0px 0px -55px;
-    background-color: white;
-}
-.interestFrame
-{
-  opacity:            1;
-  height: 100%;
-  width: 100%;
-  background-size:    cover;
-  transition:         .5s ease;
-}
-
-.middle
-{
-    transition      : .5s ease;
-    opacity         : 0;
-    position        : relative;
+    position        : absolute;
+    top             : 0%;
+    left            : 0%;
     height          : 50px;
     width           : 50px;
-    text-align      : center;
-    content         : url('./assets/hover_play.png');
+    background-color: pink;
 }
 
-.interestFrameContainer:hover .interestFrame
+.moviePlayer
 {
-    opacity: 0.3;
+	position:			relative;
+	top:				92%;
+	left:				0;
+	right:				0;
+	width:				100%;
+	/*background-color:	black;*/
+	background-image:	linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 84%);
+	height:				8%;
+	opacity:			0.0;
+	transition:			.5s ease;
 }
 
-.interestFrameContainer:hover .middle
+.topGradient {
+	background-image:	linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(0,0,0,1) 84%);
+	position:			absolute;
+	top:				0;
+	left:				0;
+	width:				100%;
+	height:				8%;
+	opacity:			0.0;
+	transition:			.5s ease;
+}
+
+.viewPort:hover .moviePlayer
 {
-    opacity: 1;
+	opacity: 0.6;
 }
 
-/*TODO add grids to their own css*/
-.container
+.viewPort:hover .topGradient {
+	opacity: 0.6;
+}
+
+.playButton
 {
-	height:					90vh;
-	width:					100vw;
-	display:				grid;
-	grid-template-areas:	"header header"
-							"left main"
-							"footer footer";
-	grid-template-columns:	15% 85%;
-	grid-template-rows:		15% 75% 10%;
-    margin-top: -32px;
-    margin-left: -32px;
+	position:			absolute;
+	width:				5%;
+	height:				100%;
+	margin-left:		10px;
+	opacity:			1.0;
+	content:			url('./assets/play_pause.png');
+	filter:				invert(100%);
+	transition:			0.2s;
 }
 
-.cell
+.playButton:hover 
 {
-	color:		white;
-	font-size:	3rem;
-	text-align: center;
-	padding:	4rem;
+	filter: invert(70%);
 }
 
-.cell-header {
-	background: deepskyblue;
-	grid-area:	header;
+.indicatorContainer
+{
+	position:			absolute;
+	display:			inline-block;
+	margin-left:		90%;
+	width:				5%;
+	height:				100%;
 }
 
-.cell-sidebar {
-	background: orangered;
-	grid-area: left;
+.indicator
+{
+	margin:				0;
+	position:			absolute;
+	top:				50%;
+	left:				50%;
+	transform:			translate(-50%, -50%);
+	height:				26%;
+	width:				26%;
+	background-color:	lime;
+	border-radius:		50% 50%;
 }
 
-.cell-main {
-	background: royalblue;
-	grid-area: main;
+.status
+{
+	position:			absolute;
+	display:			inline-block;
+	margin-left:		88%;
+	width:				15%;
+	height:				100%;
+	font-family:		'Segoe UI';
+	color:				white;
+	font-size:			16px;
+	text-align:			center;
 }
 
-.cell-footer {
-	background: gold;
-	grid-area: footer;
+.status p
+{
+  margin:		0;
+  position:		absolute;
+  top:			50%;
+  left:			50%;
+  transform:	translate(-50%, -50%);
+}
+
+.sliderContainer
+{
+	position:		absolute;
+	display:		inline-block;
+	margin-left:	8%;
+	width:			80%;
+	height:			100%;
+}
+
+.slider
+{
+	margin:				0;
+	position:			absolute;
+	top:				50%;
+	left:				50%;
+	transform:			translate(-50%, -50%);
+	width:				100%;
+	height:				10%;
+	left:				50%;
+	background:			#d3d3d3;
+	outline:			none;
+	opacity:			0.6;
+}
+
+.slider::-webkit-slider-thumb
+{
+	-webkit-appearance: none;
+	width:				25px;
+	height:				25px;
+	background:			red;
+	cursor:				pointer;
 }

@@ -1,4 +1,3 @@
-import { FrameDataService		} from '../frame-data.service'
 import { iFrameSource			} from '../sources/iFrameSource';
 import { FrameSourceSimulator	} from '../sources/FrameSourceSimulator';
 import { FrameSourceSocket		} from '../sources/FrameSourceSocket';
@@ -7,15 +6,8 @@ import { Frame					} from '../data/Frame';
 import { BoundingBox			} from '../data/BoundingBox';
 import { Recording				} from '../data/Recording';
 
-import { formatDate				} from '@angular/common';
 import { Injectable				} from '@angular/core';
 import { Subscription           } from 'rxjs';
-
-export enum State
-{
-		Live
-	,	Review
-}
 
 @Injectable()
 export class ModelLive {
@@ -23,109 +15,91 @@ export class ModelLive {
     private frameObserver			: Subscription;             //TODO: is this actually needed, is calling get subscription enough or does it need to be cached as a subscription
 	private frameSource				: iFrameSource
 	private playing					: boolean;
-	private state					: State;
 	private run						: Array<Frame>;
-	private recordings				: Array<any>;
-	private currentRecordingIndex	: number;
+	private currentRecording		: Recording;
 	private currentFrameIndex		: number;
+	private showBoxes				: boolean;
+	private isShowingFace			: boolean;
+	private live					: boolean;
 
-	constructor(private frameDataService: FrameDataService, wsService: WebsocketService)
+	constructor(wsService: WebsocketService)
     {
         console.log("Constructing ModelLive");
 
-		this.run			= new Array<Frame>	();
-		this.state			= State.Live;
-		this.playing		= true;
+		this.run				= new Array<Frame>();
+		this.playing			= false;
+		this.showBoxes			= false;
+		this.isShowingFace		= false;
+		this.currentRecording	= null;
+		this.currentFrameIndex	= 0;
 		
-		this.frameSource	= new FrameSourceSocket(wsService);
+		this.frameSource = new FrameSourceSocket(wsService);
 		this.frameSource.startFrames();
 		
 		this.frameObserver	= this.frameSource.getSubscription().subscribe((frameData: any) => this.onNewFrame(frameData));
-
-		this.frameDataService.getRecordings().subscribe((data: any) => this.recordings = data);
     }
 
-	private onNewFrame(frameData: string): void
+	private onNewFrame(frame: Frame): void
 	{
-		var frame	: Frame			= new Frame			();
-		var box		: BoundingBox	= new BoundingBox	();
-
-		box.x		= 0;
-		box.y		= 0;
-		box.height	= 0;
-		box.width	= 0;
-
-		frame.data		= frameData;
-		frame.timeStamp = formatDate(Date(), 'yyyy/MM/dd', 'en');
-		frame.boundingBoxes.push(box);
-
-        if (this.playing && this.state == State.Live) this.currentFrame = frame;
-
-		this.addFrame(frame);
+        if (this.playing) this.currentFrame = frame;
+		if (this.live	) this.addFrame(frame);
 	}
 
-	public loadRecording(index: number): void
+	public setPlaying(): void
 	{
-		if (index >= this.recordings.length || index < 0) return;
+		this.playing = !this.playing;
 
-		this.currentRecordingIndex = index;
-
-		this.setState(State.Review);
+		if (this.playing)
+		{
+			if (this.live)	this.frameObserver  = this.frameSource.getSubscription().subscribe((frameData: any) => this.onNewFrame(frameData));
+			else			this.startFrameLoop();
+		}
+		else
+		{
+			if (this.live)	this.frameObserver = null;
+			else			this.stopFrameLoop();
+		}
 	}
 
-	public requestLive(): void
+	private async startFrameLoop()
 	{
-		this.currentFrame = null;
-		this.setState(State.Live);
+		if (!this.currentRecording) return;
+
+		while(this.playing)
+		{
+			console.log(this.currentRecording.frames.length + ", " + this.currentFrameIndex);
+
+			this.currentFrameIndex++;
+			if (this.currentFrameIndex >= this.currentRecording.frames.length) this.currentFrameIndex = 0;
+
+			this.currentFrame = this.currentRecording.frames[this.currentFrameIndex];
+
+			await this.delay(166);
+		}
+	}
+
+	private stopFrameLoop(): void
+	{
+		this.playing = false;
+	}
+
+	public setCurrentRecording(recording: Recording): void
+	{
+		this.currentFrameIndex	= 0;
+		this.currentRecording	= recording;
+
+		if (this.currentRecording && this.currentRecording.frames.length > 0) this.currentFrame = this.currentRecording.frames[this.currentFrameIndex];
+	}
+	
+	public requestBoxes(): void
+	{
+		this.showBoxes = !this.showBoxes;
 	}
 
 	private addFrame(frame: Frame): void
     {
-        if (this.run.length > 100) this.run.shift();
+        if (this.run.length > 1000) this.run.shift();
         this.run.push(frame);
-
-		//saving of frames should be not be done here
-		//if (this.isRecording) this.frameDataService.addFrame(1, frame).subscribe((data: any) => this.handleFrameAddResponse(data));
-	}
-
-	private handleFrameAddResponse(data: any): void
-	{
-	}
-
-	private getFirstFrameString(index: number): string
-	{
-		if (this.recordings.length <= index || index < 0) return "";
-		if (this.recordings[index].frames.length == 0	) return "";
-
-		return this.recordings[index].frames[0].data;
-	}
-
-	private setState(state: State): void
-	{
-		if (state == State.Live)
-		{
-			this.playing = true;
-		}
-		if (state == State.Review)
-		{
-			this.currentFrameIndex	= 0;
-			this.playing			= false;
-			this.currentFrame		= this.recordings[this.currentRecordingIndex].frames[this.currentFrameIndex];
-		}
-
-		this.state = state;
-	}
-
-	private async startRecording()
-	{
-		while (this.playing && this.state == State.Review)
-		{
-			if (this.currentFrameIndex + 1 >= this.recordings[this.currentRecordingIndex].frames.length) this.currentFrameIndex = 0;
-			else this.currentFrameIndex++;
-
-			this.currentFrame = this.recordings[this.currentRecordingIndex].frames[this.currentFrameIndex];
-			await this.delay(160);
-		}
 	}
 
 	private delay(ms: number)
@@ -134,16 +108,16 @@ export class ModelLive {
 	}
 	
 	//GETTERS
-	public getCurrentFrameData	    ()				: string		{ return this.currentFrame ? this.currentFrame.data : "";		}
-    public sourceActive             ()				: boolean		{ return this.frameSource.isActive();							}
-	public getCurrentFrameTimeStamp	()				: string		{ return this.currentFrame ? this.currentFrame.timeStamp : "";	}
-	public getRecordings			()				: Array<any>	{ return this.recordings;										}
-	public getFirstFrame			(index: number)	: string		{ return this.getFirstFrameString(index);						}
-	public getState					()				: State			{ return this.state;											}
-
-    //public getSliderPercentage      (): number  { return this.frameSource.getFrameCount() == 0 ? 0 : this.frameSource.getCurrentIndex() / this.frameSource.getFrameCount(); }
+	public getCurrentFrameData	    ()				: string				{ return this.currentFrame ? this.currentFrame.data : "";														}
+    public sourceActive             ()				: boolean				{ return this.frameSource.isActive();																			}
+	public getCurrentFrameTimeStamp	()				: string				{ return this.currentFrame ? this.currentFrame.timeStamp : "";													}
+	public getShowBoxes				()				: boolean 				{ return this.showBoxes;																						}
+	public getBoxes					()				: Array<BoundingBox>	{ return (this.currentFrame && this.showBoxes) ? this.currentFrame.boundingBoxes : new Array<BoundingBox>();	}
+	public showFace					()				: boolean				{ return this.isShowingFace;																					}
+	public getBoxByIndex			(index: number) : BoundingBox			{ return this.currentFrame.boundingBoxes[index];																}
 
 
 	//SETTERS
-	public setPlaying(): void { this.playing = !this.playing; if (this.state == State.Review && this.playing) this.startRecording(); }
+	public setShowFace	(s: boolean):		void { this.isShowingFace = s;									}
+	public setLive		(live: boolean):	void { this.live = live; if(this.live) this.playing = true;		}
 }

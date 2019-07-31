@@ -1,29 +1,16 @@
-<div class="container">
-	<div class="cell cell-header"></div>
-	<div class="cell cell-sidebar">
-        <div class="interestFrameContainer" *ngFor="let recording of getRecordings(); let i = index" [attr.data-index]="i" (click)="loadRecording(i)">
-            <div class="interestFrame" [ngStyle]="{'background-image': 'url(' + getFirstFrame(i) + ')'}">
-                <div class="middle"></div>
+<div class="mainArea">
+    <div class="viewPort" [ngStyle]="{'background-image': 'url(' + getCurrentFrameData() + ')'}">
+        <div class="moviePlayer">
+            <div class="playButton" (click)="setPlaying()"></div>
+            <div class="sliderContainer">
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
             </div>
-        </div>
-    </div>
-    
-    <div class="cell cell-main">
-        <div class="viewPort" [ngStyle]="{'background-image': 'url(' + getCurrentFrameData() + ')'}">
-            <div class="startStop" (click)="setPlaying()"></div>
-            <div class="dropdown">
-                <div class="dropbtn">Dropdown</div>
-                <div class="dropdown-content">
-                    <a href="#"                         >Show Boxes  </a>
-                    <a href="#" *ngIf="isReview()" (click)="requestLive()" >Live        </a>
-                </div>
+            <div class="indicatorContainer">
+                <div class="indicator"></div>
             </div>
-            <div class="timeBox">{{getTimeStamp()}}</div>
-            <!-->div class="sliderRegion">
-                <div class="frameSlider" cdkDragLockAxis="x" cdkDragBoundary=".sliderRegion" cdkDrag ondragend="setFrameIndex($event)"></div>
-                <div class="frameSliderBar" *ngIf='!sourceActive()'></div>
-            </!--div-->
+            <div class="status"><p>Live</p></div>
         </div>
+        <div class="topGradient"></div>
+        <div class="viewPortMenu" *ngIf="isLive()"></div>
     </div>
-	<div class="cell cell-footer"></div>
 </div>
