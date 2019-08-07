@@ -86,6 +86,29 @@
 	transition: 0.5s ease;
 }
 
+.deleteButton
+{
+	background-color:	transparent;
+	position:			absolute;
+	top:				80%;
+	left:				50%;
+	transform:			translate(-50%, -50%);
+	transition:			0.5s ease;
+	width:				60%;
+	height:				30%;
+	border-radius:		30px;
+	color:				transparent;
+}
+
+.deleteButton p
+{
+	margin:		0;
+	position:	absolute;
+	top:		50%;
+	left:		50%;
+	transform:	translate(-50%, -50%);
+}
+
 .column:hover .overlay
 {
 	background-color: rgba(128, 128, 128, 0.7);
@@ -95,3 +118,11 @@
 {
 	color: white;
 }
+
+.column:hover .deleteButton
+{
+	background-color:	red;
+	color:				white;
+}
+
+

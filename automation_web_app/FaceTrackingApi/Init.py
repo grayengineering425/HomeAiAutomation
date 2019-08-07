@@ -38,7 +38,11 @@ def getRecording(id):
     return jsonify({'recording': recording}), 201
 
 #delete recording
+@app.route('/Recording/<id>', methods=['DELETE'])
+def deleteRecording(id):
+    success = server.deleteRecording(id)
 
+    return jsonify({ 'success': success })
 
 #rename recording
 

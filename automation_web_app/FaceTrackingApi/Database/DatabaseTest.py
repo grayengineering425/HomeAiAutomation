@@ -9,4 +9,4 @@ from Recording import Recording
 if __name__ == '__main__':
     database = SqlDatabase()
 
-    database.getRecordingPreviews()
+    database.deleteRecording(4)

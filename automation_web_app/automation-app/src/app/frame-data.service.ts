@@ -14,6 +14,9 @@ export class FrameDataService {
     constructor(private http: HttpClient) { this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' }); }
 
 	//GET
-	public getRecordingPreviews	()	{ return this.http.get(this.accessPointUrl + '/RecordingPreviews');				}
-	public getRecording			(id){ return this.http.get(this.accessPointUrl + '/Recording/' + id);				}
+	public getRecordingPreviews	()	{ return this.http.get	 (this.accessPointUrl + '/RecordingPreviews');				}
+	public getRecording			(id){ return this.http.get	 (this.accessPointUrl + '/Recording/' + id	);				}
+
+	//DELETE
+	public deleteRecording		(id){ return this.http.delete(this.accessPointUrl + '/Recording/' + id	);				}
 }

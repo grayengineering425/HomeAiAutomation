@@ -53,6 +53,12 @@ export class PictorialIndexComponent implements AfterViewChecked
 		this.maskShowing	= true;
 	}
 
+	public deleteRecording(row: number, column: number): void
+	{
+		console.log("deleting");
+		this.model.deleteRecording(row, column);
+	}
+
 	public getRunLength			(row: number, column: number)	: number					{ return this.model.getRunLength(row, column);		}
 	public getRunName			(row: number, column: number)	: string					{ return this.model.getRunName(row, column);		}
 	public getRecordingPreviews	()								: Array<Array<Recording>>	{ return this.model.getRecordingPreviews();			}

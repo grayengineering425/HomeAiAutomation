@@ -122,6 +122,24 @@ export class ModelPictorialIndex {
 		this.activeRecording = null;
 	}
 
+	public deleteRecording(row: number, column: number): void
+	{
+		var recording = this.recordings[row][column];
+		if (!recording) return;
+
+		this.frameDataService.deleteRecording(recording.id).subscribe((data: any) => { this.onDeleteRecording(data) });
+
+		this.recordings[row].splice(column, 1);
+
+		if (this.recordings[row].length == 0) this.recordings.splice(row, 1);
+	}
+
+	private onDeleteRecording(data): void
+	{
+		if (data.success) console.log("Successfully deleted");
+
+	}
+
 	public isActiveRecording	(): boolean					{ return this.activeRecording ? true : false;	}
 	public getRecordingPreviews	(): Array<Array<Recording>>	{ return this.recordings;						}
 	public getCurrentRecording	(): Recording				{ return this.activeRecording;					}

@@ -51,6 +51,22 @@ class SqlDatabase(IDatabase):
         conn.close  ()
 
         return recordingId
+
+    def deleteRecording(self, recordingId):
+        conn   = sqlite3.connect(self.databasePath)
+        cursor = conn.cursor()
+
+        deleteRecordingQuery = "DELETE FROM RECORDING WHERE id=" + str(recordingId)
+        result = cursor.execute(deleteRecordingQuery)
+        
+        if result.rowcount > 0:
+            conn.commit()
+            conn.close()
+            return True
+
+        conn.commit()
+        conn.close()
+        return False
        
     def getRecording(self, recordingId):
         recording = Recording()

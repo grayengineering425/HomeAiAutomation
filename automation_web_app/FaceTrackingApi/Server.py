@@ -82,3 +82,8 @@ class Server:
         recording = self.database.getRecording(id)
 
         return recording.toDict()
+
+    def deleteRecording(self, id):
+        success = self.database.deleteRecording(id)
+
+        return success
