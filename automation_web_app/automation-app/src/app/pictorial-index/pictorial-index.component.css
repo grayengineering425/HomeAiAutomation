@@ -7,7 +7,6 @@
 {
 	float	            : left;
 	width	            : 30%;
-	padding	            : 5px;
     height              : 250px;
     background-color    : red;
     margin              : 3% 1% 1% 1%;
@@ -62,4 +61,37 @@
     width           : 50px;
     height          : 50px;
     background-color: red;
+}
+
+.overlay
+{
+	position		: relative;
+	top				: 0;
+	left			: 0;
+	height			: 100%;
+	width			: 100%;
+	transition		: 0.5s ease;
+	background-color: rgba(128, 128, 128, 0.0);
+}
+
+.overlayText
+{
+	color:		transparent;
+	font-size:	20px;
+	position:	relative;
+	top:		20%;
+	left:		50%;
+	transform:	translate(-50%, -50%);
+	text-align:	center;
+	transition: 0.5s ease;
+}
+
+.column:hover .overlay
+{
+	background-color: rgba(128, 128, 128, 0.7);
+}
+
+.column:hover .overlayText
+{
+	color: white;
 }

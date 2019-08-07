@@ -10,8 +10,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class TrackingModel : 
     def __init__(self):
-        self.meta_graph_path        = 'C:/users/graye/Desktop/new_resnet/yolo.ckpt.meta'
-        self.ckpt_path              = 'C:/users/graye/Desktop/new_resnet/yolo.ckpt'
+        self.meta_graph_path        = 'C:/users/310262408/Desktop/yolo_ckpt/new_resnet/yolo.ckpt.meta'
+        self.ckpt_path              = 'C:/users/310262408/Desktop/yolo_ckpt/new_resnet/yolo.ckpt'
         self.output_tensor_name     = 'training_vars/final_output:0'
         self.input_tensor_name      = 'input_image:0'
         self.train_placeholder_name = 'kp:0'

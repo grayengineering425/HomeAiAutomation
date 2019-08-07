@@ -1,8 +1,8 @@
-import { Component, ViewChild, Input	} from '@angular/core';
-import { ModelLive						} from '../model/ModelLive'
-import { WebsocketService				} from '../sources/websocket.service'
-import { BoundingBox					} from '../data/BoundingBox';
-import { Recording						} from '../data/Recording'
+import { Component, ViewChild, Input, AfterViewInit, ElementRef	} from '@angular/core';
+import { ModelLive										} from '../model/ModelLive'
+import { WebsocketService								} from '../sources/websocket.service'
+import { BoundingBox									} from '../data/BoundingBox';
+import { Recording										} from '../data/Recording'
 
 @Component({
   selector:     'app-live-feed',
@@ -11,17 +11,28 @@ import { Recording						} from '../data/Recording'
   providers:	[WebsocketService, ModelLive]
 })
 
-export class LiveFeedComponent
+export class LiveFeedComponent implements AfterViewInit
 {
-	@ViewChild	("currentFace") currentFace;
-	@Input		() live: boolean;
+	@ViewChild('viewPort') viewPort: ElementRef;
+	@Input() live: boolean;
 
-	constructor(private model: ModelLive)
+	private viewPortWidth  : number;
+	private viewPortHeight: number;
+
+	constructor(private model: ModelLive, private elRef: ElementRef)
     {
         console.log('Constructing LiveFeedComponent');
 
 		this.model.setLive(this.live);
-    }
+	}
+
+	ngAfterViewInit()
+	{
+		//var viewPort = this.elRef.nativeElement.querySelector('mainArea');
+		//console.log(this.viewPort.nativeElement.offsetWidth);
+		this.viewPortWidth  = this.viewPort.nativeElement.offsetWidth;
+		this.viewPortHeight = this.viewPort.nativeElement.offsetHeight;
+	}
 
     public setPlaying(): void
 	{
@@ -35,23 +46,38 @@ export class LiveFeedComponent
 
 	public requestBoxes(): void
 	{
-		this.model.requestBoxes();
+		this.model.requestToggleBoxes();
 	}
 
-	public requestFace(index: number): void
+	public getBoxWidth(index: number): string
 	{
-		console.log(index);
-		this.model.setShowFace(true);
-		
-		var box				= this.model.getBoxByIndex(index)
-		var currentImage	= this.model.getCurrentFrameData();
+		var nativeWidth = this.model.getBoxByIndex(index).width;
+		var viewPortRatio = this.viewPortWidth / 448.0;
 
-		console.log(box);
+		return (nativeWidth * viewPortRatio).toString() + "px";
+	}
 
-		var context = this.currentFace.nativeElement.getContext("2d");
+	public getBoxHeight(index: number): string
+	{
+		var nativeHeight  = this.model.getBoxByIndex(index).height * 2;
+		var viewPortRatio = this.viewPortHeight / 448.0;
 
-		context.fillStyle = currentImage;
-		context.fillRect(0, 0, 200, 200)
+		return (nativeHeight * viewPortRatio).toString() + "px";
+	}
+
+	public getBoxX(index: number): string
+	{
+		var nativeX		  = this.model.getBoxByIndex(index).x - this.model.getBoxByIndex(index).width / 2.0;
+		var viewPortRatio = this.viewPortWidth / 448.0;
+
+		return (nativeX * viewPortRatio).toString() + "px";
+	}
+	public getBoxY(index: number): string
+	{
+		var nativeY       = this.model.getBoxByIndex(index).y - this.model.getBoxByIndex(index).height / 2.0;
+		var viewPortRatio = this.viewPortHeight / 448.0;
+
+		return (nativeY * viewPortRatio).toString() + "px";
 	}
 
 	public setCurrentRecording(recording: Recording)
@@ -61,12 +87,12 @@ export class LiveFeedComponent
 		this.model.setCurrentRecording(recording);
 	}
 
-	public getCurrentFrameData	()				: string				{ return					this.model.getCurrentFrameData();		}
-	public getTimeStamp			()				: Date					{ return this.convertDate(	this.model.getCurrentFrameTimeStamp());	}
-    public sourceActive         ()				: boolean				{ return                    this.model.sourceActive();              }
-	public getBoxes				()				: Array<BoundingBox>	{ return					this.model.getBoxes();					}
-	public showFace				()				: boolean				{ return					this.model.showFace();					}
-	public isLive				()				: boolean				{ return					this.live;								}
+	public getCurrentFrameData	(): string				{ return this.model.getCurrentFrameData();							}
+	public getTimeStamp			(): Date				{ return this.convertDate(this.model.getCurrentFrameTimeStamp());	}
+	public sourceActive			(): boolean				{ return this.model.sourceActive();									}
+	public getBoundingBoxes		(): Array<BoundingBox>	{ return this.model.getBoxes();										}
+	public isLive				(): boolean				{ return this.live;													}
+	public showBoxes			(): boolean				{ return this.model.getShowBoxes();									}
 
 	private convertDate(date): Date
 	{

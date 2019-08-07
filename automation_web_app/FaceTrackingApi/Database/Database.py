@@ -9,7 +9,7 @@ from IDatabase      import IDatabase
 
 class SqlDatabase(IDatabase):
     def __init__(self):
-        self.databasePath = "C:/modules/HomeAiAutomation/automation_web_app/FaceTrackingApi/Database/FaceTracking.db"             #TODO, not sure how relative paths work in python...
+        self.databasePath = "C:/HomeAiAutomation/automation_web_app/FaceTrackingApi/Database/FaceTracking.db"             #TODO, not sure how relative paths work in python...
 
     def addNewFrame(self, frame):
         conn    = sqlite3.connect(self.databasePath)
@@ -97,19 +97,21 @@ class SqlDatabase(IDatabase):
 
         cursor = conn.cursor()
 
-        getPreviewQuery = """SELECT r.id, r.name, f.data, MIN(f.timeStamp)
+        getPreviewQuery = """SELECT r.id, r.name, f.data, MIN(f.timeStamp), COUNT(f.id)
                             FROM RECORDING AS r
                             LEFT JOIN FRAME AS f ON r.id = f.recordingId
                             GROUP BY r.id"""
 
-        rows = cursor.execute(getPreviewQuery)
+        rows  = cursor.execute(getPreviewQuery)
 
         for row in rows:
             recording = Recording(row[0], row[1])
             
             firstFrame = TrackingImage(row[2], row[3])
             recording.addFrame(firstFrame)
-
+            
+            recording.runLength = row[4]
+            
             recordingPreviews.append(recording)
 
         conn.close()

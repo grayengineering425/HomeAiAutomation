@@ -67,8 +67,6 @@ export class ModelLive {
 
 		while(this.playing)
 		{
-			console.log(this.currentRecording.frames.length + ", " + this.currentFrameIndex);
-
 			this.currentFrameIndex++;
 			if (this.currentFrameIndex >= this.currentRecording.frames.length) this.currentFrameIndex = 0;
 
@@ -91,7 +89,7 @@ export class ModelLive {
 		if (this.currentRecording && this.currentRecording.frames.length > 0) this.currentFrame = this.currentRecording.frames[this.currentFrameIndex];
 	}
 	
-	public requestBoxes(): void
+	public requestToggleBoxes(): void
 	{
 		this.showBoxes = !this.showBoxes;
 	}
@@ -112,7 +110,7 @@ export class ModelLive {
     public sourceActive             ()				: boolean				{ return this.frameSource.isActive();																			}
 	public getCurrentFrameTimeStamp	()				: string				{ return this.currentFrame ? this.currentFrame.timeStamp : "";													}
 	public getShowBoxes				()				: boolean 				{ return this.showBoxes;																						}
-	public getBoxes					()				: Array<BoundingBox>	{ return (this.currentFrame && this.showBoxes) ? this.currentFrame.boundingBoxes : new Array<BoundingBox>();	}
+	public getBoxes					()				: Array<BoundingBox>	{ return this.currentFrame ? this.currentFrame.boundingBoxes : new Array<BoundingBox>();	}
 	public showFace					()				: boolean				{ return this.isShowingFace;																					}
 	public getBoxByIndex			(index: number) : BoundingBox			{ return this.currentFrame.boundingBoxes[index];																}
 

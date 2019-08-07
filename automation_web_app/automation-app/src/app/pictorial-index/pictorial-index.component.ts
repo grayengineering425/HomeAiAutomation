@@ -30,6 +30,11 @@ export class PictorialIndexComponent implements AfterViewChecked
 		{
 			this.model.loadRecording(this.currentRow, this.currentColumn, this.videoPlayer);
 		}
+		else
+		{
+			//TODO: need to update the logic for starting and stopping the video of the player...
+			//this.videoPlayer.setPlaying(false);
+		}
 	}
 
 	public exitActiveRecording(): void
@@ -48,6 +53,8 @@ export class PictorialIndexComponent implements AfterViewChecked
 		this.maskShowing	= true;
 	}
 
+	public getRunLength			(row: number, column: number)	: number					{ return this.model.getRunLength(row, column);		}
+	public getRunName			(row: number, column: number)	: string					{ return this.model.getRunName(row, column);		}
 	public getRecordingPreviews	()								: Array<Array<Recording>>	{ return this.model.getRecordingPreviews();			}
 	public getFirstFrameData	(row: number, column: number)	: string					{ return this.model.getFirstFrameData(row, column);	}
 	public isMaskShowing		()								: boolean					{ return this.maskShowing;							}

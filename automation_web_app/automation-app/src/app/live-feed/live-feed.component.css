@@ -7,6 +7,17 @@
 	margin-top:			29px;
 }
 
+.boundingBox {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	width: 100px;
+	height: 100px;
+	border: 2px;
+	border-color: greenyellow;
+	border-style: solid;
+}
+
 .viewPort
 {
 	margin:				0;
@@ -18,28 +29,53 @@
 	width:				60%;
 	margin-top:			-2%;
 	background-color:	gray;
-	background-size:	cover;
+	background-size:	100%;
 }
 
 .timeBox
 {
-  position:         relative;
-  left:             78%;
-  bottom:           15%;
-  height:           20px;
-  width:            150px;
-  color:            #000000;
+  position:  relative;
+  left:      78%;
+  bottom:    15%;
+  height:    20px;
+  width:     150px;
+  color:     #000000;
   font-size: 12px;
 }
 
+.dropdown
+{
+	position: absolute;
+	left	: 0%;
+	top		: 0%;
+	display	: inline-block;
+}
 .viewPortMenu
 {
-    position        : absolute;
-    top             : 0%;
-    left            : 0%;
     height          : 50px;
     width           : 50px;
     background-color: pink;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown:hover .dropdown-content
+{
+	display: block;
 }
 
 .moviePlayer

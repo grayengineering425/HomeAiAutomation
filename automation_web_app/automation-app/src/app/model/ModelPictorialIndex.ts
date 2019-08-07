@@ -33,8 +33,10 @@ export class ModelPictorialIndex {
 				currentRowIndex++;
 			}
 
-			var recording = new Recording();
-			recording.id = data.recordings[i].id;
+			var recording		= new Recording();
+			recording.id		= data.recordings[i].id;
+			recording.name		= data.recordings[i].name;
+			recording.runLength = data.recordings[i].runLength;
 
 			if (data.recordings[i].frames.length == 0) continue;
 
@@ -67,6 +69,20 @@ export class ModelPictorialIndex {
 		}
 
 		return frame;
+	}
+
+	public getRunLength(row: number, column: number): number
+	{
+		if (row > this.recordings.length || column > this.recordings[row].length) return 0;
+
+		return this.recordings[row][column].runLength;
+	}
+
+	public getRunName(row: number, column: number): string
+	{
+		if (row > this.recordings.length || column > this.recordings[row].length) return "";
+
+		return this.recordings[row][column].name;
 	}
 	
 	public getFirstFrameData(row: number, column: number): string

@@ -18,3 +18,4 @@ Experimental/face_tracking/tf_logs/
 Experimental/face_tracking/tmp/
 VideoStream/VideoStream/VideoStream.VC.VC.opendb
 VideoStream/VideoStream/VideoStream.VC.db
+automation_web_app\FaceTrackingApi\__pycache__

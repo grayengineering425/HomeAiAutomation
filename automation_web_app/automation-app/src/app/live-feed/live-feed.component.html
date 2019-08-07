@@ -1,5 +1,6 @@
 <div class="mainArea">
-    <div class="viewPort" [ngStyle]="{'background-image': 'url(' + getCurrentFrameData() + ')'}">
+    <div class="viewPort" #viewPort [ngStyle]="{'background-image': 'url(' + getCurrentFrameData() + ')'}">
+		<div class="boundingBox" *ngFor="let box of getBoundingBoxes(); let i = index" [style.width]="getBoxWidth(i)" [style.height]="getBoxHeight(i)" [style.left]="getBoxX(i)" [style.top]="getBoxY(i)"></div>
         <div class="moviePlayer">
             <div class="playButton" (click)="setPlaying()"></div>
             <div class="sliderContainer">
@@ -11,6 +12,12 @@
             <div class="status"><p>Live</p></div>
         </div>
         <div class="topGradient"></div>
-        <div class="viewPortMenu" *ngIf="isLive()"></div>
-    </div>
+		<div class="dropdown">
+			<div class="viewPortMenu" *ngIf="isLive()">
+				<div class="dropdown-content">
+					<a href="#" (click)="toggleBoundingBoxes()">Bounding Boxes</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
