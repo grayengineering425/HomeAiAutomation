@@ -1,7 +1,7 @@
-import { Component, AfterViewChecked, ViewChild		} from '@angular/core';
-import { ModelPictorialIndex						} from '../model/ModelPictorialIndex'
-import { Recording									} from '../data/Recording'
-import { LiveFeedComponent							} from '../live-feed/live-feed.component'
+import { Component, AfterViewChecked, ViewChild, ElementRef	} from '@angular/core';
+import { ModelPictorialIndex								} from '../model/ModelPictorialIndex'
+import { Recording											} from '../data/Recording'
+import { LiveFeedComponent									} from '../live-feed/live-feed.component'
 
 @Component({
   selector:		'app-pictorial-index',
@@ -11,15 +11,18 @@ import { LiveFeedComponent							} from '../live-feed/live-feed.component'
 })
 export class PictorialIndexComponent implements AfterViewChecked
 {
-	@ViewChild(LiveFeedComponent) videoPlayer: LiveFeedComponent;
+	@ViewChild(LiveFeedComponent)	videoPlayer	: LiveFeedComponent;
+	@ViewChild('nameInput')			nameInput	: ElementRef;
 
 	private maskShowing		: boolean;
 	private currentRow		: number;
 	private currentColumn	: number;
+	private dialogShowing	: boolean;
 
 	constructor(private model: ModelPictorialIndex)
 	{
 		this.maskShowing	= false;
+		this.dialogShowing	= false;
 		this.currentRow		= -1;
 		this.currentColumn	= -1;
 	}
@@ -55,8 +58,26 @@ export class PictorialIndexComponent implements AfterViewChecked
 
 	public deleteRecording(row: number, column: number): void
 	{
-		console.log("deleting");
 		this.model.deleteRecording(row, column);
+	}
+
+	public startEditRecording(row: number, column: number): void
+	{
+		this.dialogShowing	= true;
+		this.currentRow		= row;
+		this.currentColumn	= column;
+	}
+
+	public stopEditRecording(): void
+	{
+		this.dialogShowing	= false;
+		this.currentRow		= -1;
+		this.currentColumn	= -1;
+	}
+
+	public updateRecordingName(): void
+	{
+		this.model.updateRecordingName(this.currentRow, this.currentColumn, this.nameInput.nativeElement.value);
 	}
 
 	public getRunLength			(row: number, column: number)	: number					{ return this.model.getRunLength(row, column);		}
@@ -64,4 +85,5 @@ export class PictorialIndexComponent implements AfterViewChecked
 	public getRecordingPreviews	()								: Array<Array<Recording>>	{ return this.model.getRecordingPreviews();			}
 	public getFirstFrameData	(row: number, column: number)	: string					{ return this.model.getFirstFrameData(row, column);	}
 	public isMaskShowing		()								: boolean					{ return this.maskShowing;							}
+	public isDialogShowing		()								: boolean					{ return this.dialogShowing;						}
 }

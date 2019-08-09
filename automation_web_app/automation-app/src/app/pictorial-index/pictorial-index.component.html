@@ -3,6 +3,7 @@
 		<div class="overlay">
 			<div class="overlayText">Name: {{getRunName(i, j)}}<br />Length: {{getRunLength(i, j)}}</div>
 			<div class="deleteButton" (click)="deleteRecording(i, j);$event.stopPropagation()"><p>Delete</p></div>
+			<div class="editButton" (click)="startEditRecording(i, j);$event.stopPropagation()"></div>
 		</div>
 	</div>
 </div>
@@ -11,4 +12,13 @@
     <app-live-feed live="false"></app-live-feed>
     <div class="exitButton" (click)="exitActiveRecording()">
 	</div>
+</div>
+
+<div class="mask" *ngIf="isDialogShowing()">
+	<div class="dialog">
+		<p class="runNameLabel">Run Name:</p> 
+		<input type="text" class="nameInput" #nameInput name="Name" value="">
+		<div class="submitButton" (click)="updateRecordingName()"><p>Submit</p></div>
+	</div>
+	<div class="exitButton" (click)="stopEditRecording()"></div>
 </div>

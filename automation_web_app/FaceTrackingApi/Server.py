@@ -87,3 +87,8 @@ class Server:
         success = self.database.deleteRecording(id)
 
         return success
+
+    def renameRecording(self, id, name):
+        success = self.database.renameRecording(id, name)
+
+        return success

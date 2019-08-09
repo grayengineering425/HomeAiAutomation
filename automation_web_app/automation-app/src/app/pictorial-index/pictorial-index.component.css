@@ -109,6 +109,27 @@
 	transform:	translate(-50%, -50%);
 }
 
+.editButton
+{
+	position:			absolute;
+	top:				5px;
+	right:				5px;
+	width:				40px;
+	height:				40px;
+	background-size:	cover;
+	content:			"";
+}
+
+.editButton:hover
+{
+	filter:	invert(100%);
+}
+
+.column:hover .editButton
+{
+	content: url('./assets/edit.png');
+}
+
 .column:hover .overlay
 {
 	background-color: rgba(128, 128, 128, 0.7);
@@ -125,4 +146,58 @@
 	color:				white;
 }
 
+.dialog
+{
+	margin:				0;
+	position:			absolute;
+	top:				50%;
+	left:				50%;
+	transform:			translate(-50%, -50%);
+	background-color:	white;
+	width:				400px;
+	height:				300px;
+}
 
+.nameInput
+{
+	margin:				0;
+	position:			absolute;
+	top:				50%;
+	left:				60%;
+	transform:			translate(-50%, -50%);
+	background-color:	lightgray;
+	color:				black;
+}
+
+.runNameLabel
+{
+	color:		black;
+	margin:		0;
+	position:	absolute;
+	top:		50%;
+	left:		20%;
+	transform:	translate(-50%, -50%);
+}
+
+.submitButton
+{
+	margin:				0;
+	position:			absolute;
+	top:				80%;
+	left:				50%;
+	transform:			translate(-50%, -50%);
+	background-color:	lawngreen;
+	color:				black;
+	width:				128px;
+	height:				48px;
+	border-radius:		30px;
+}
+
+.submitButton p
+{
+	margin:		0;
+	position:	absolute;
+	top:		50%;
+	left:		50%;
+	transform:	translate(-50%, -50%);
+}

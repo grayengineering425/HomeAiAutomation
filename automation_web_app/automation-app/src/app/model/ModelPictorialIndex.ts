@@ -134,10 +134,24 @@ export class ModelPictorialIndex {
 		if (this.recordings[row].length == 0) this.recordings.splice(row, 1);
 	}
 
+	public updateRecordingName(row: number, column: number, name: string): void
+	{
+		var recording = this.recordings[row][column];
+		if (!recording) return;
+
+		this.frameDataService.updateRecordingName(recording.id, name).subscribe((data: any) => { this.onRenameRecording(data) });
+
+		this.recordings[row][column].name = name;
+	}
+
+	private onRenameRecording(data): void
+	{
+		if (data.success) console.log("Successfully renamed");
+	}
+
 	private onDeleteRecording(data): void
 	{
 		if (data.success) console.log("Successfully deleted");
-
 	}
 
 	public isActiveRecording	(): boolean					{ return this.activeRecording ? true : false;	}

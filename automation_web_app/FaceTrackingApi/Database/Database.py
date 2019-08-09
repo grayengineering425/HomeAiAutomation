@@ -133,3 +133,24 @@ class SqlDatabase(IDatabase):
         conn.close()
 
         return recordingPreviews
+
+    def renameRecording(self, id, name):
+        conn = sqlite3.connect(self.databasePath)
+
+        cursor = conn.cursor()
+
+        renameRecordingQuery = """UPDATE RECORDING
+                                  SET name='""" + name + """'
+                                  WHERE id=""" + str(id)
+
+        rows = cursor.execute(renameRecordingQuery)
+
+        if rows.rowcount == 0:
+            conn.commit()
+            conn.close()
+            return False
+
+        else:
+            conn.commit()
+            conn.close()
+            return True
