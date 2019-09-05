@@ -32,6 +32,7 @@ class Server:
             self.database = SqlDatabase()
 
         self.p = threading.Thread(target = self.processImagesLoop)
+        self.p.daemon = True;
         self.p.start()
 
     def __del__(self):
@@ -67,7 +68,6 @@ class Server:
 
     def kill(self):
         self.alive = False
-        print("killing thread")
 
     def getRecordingPreviews(self):
         recordings = self.database.getRecordingPreviews()
