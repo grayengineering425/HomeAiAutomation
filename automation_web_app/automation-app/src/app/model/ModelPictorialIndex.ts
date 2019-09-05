@@ -92,13 +92,13 @@ export class ModelPictorialIndex {
 		return this.recordings[row][column].frames[0].data;
 	}
 	
-	public loadRecording(row: number, column: number, liveFeedChild: any): void
+	public loadRecording(row: number, column: number, reviewPlayerChild: any): void
 	{
 		if (row > this.recordings.length || column > this.recordings[row].length) return;
 
 		var id = this.recordings[row][column].id;
 
-		this.frameDataService.getRecording(id).subscribe((data: any) => { this.onFullRecording(data); liveFeedChild.setCurrentRecording(this.activeRecording); });
+		this.frameDataService.getRecording(id).subscribe((data: any) => { this.onFullRecording(data); reviewPlayerChild.setCurrentRecording(this.activeRecording); });
 	}
 
 	private onFullRecording(data): void

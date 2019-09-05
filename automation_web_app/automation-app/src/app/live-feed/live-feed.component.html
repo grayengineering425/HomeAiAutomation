@@ -1,23 +1,13 @@
 <div class="mainArea">
     <div class="viewPort" #viewPort [ngStyle]="{'background-image': 'url(' + getCurrentFrameData() + ')'}">
-		<div class="boundingBox" *ngFor="let box of getBoundingBoxes(); let i = index" [style.width]="getBoxWidth(i)" [style.height]="getBoxHeight(i)" [style.left]="getBoxX(i)" [style.top]="getBoxY(i)"></div>
+		<p>Something seems to have gone wrong...</p>
         <div class="moviePlayer">
             <div class="playButton" (click)="setPlaying()"></div>
-            <div class="sliderContainer">
-                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-            </div>
             <div class="indicatorContainer">
                 <div class="indicator"></div>
             </div>
-            <div class="status"><p>Live</p></div>
+            <div class="status"><p>{{getStateText()}}</p></div>
         </div>
         <div class="topGradient"></div>
-		<div class="dropdown">
-			<div class="viewPortMenu" *ngIf="isLive()">
-				<div class="dropdown-content">
-					<a href="#" (click)="toggleBoundingBoxes()">Bounding Boxes</a>
-				</div>
-			</div>
-		</div>
 	</div>
 </div>

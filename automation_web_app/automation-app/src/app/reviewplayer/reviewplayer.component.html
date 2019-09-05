@@ -1,0 +1,23 @@
+<div class="mainArea">
+	<div class="viewPort" #viewPort [ngStyle]="{'background-image': 'url(' + getCurrentFrameData() + ')'}">
+		<div class="boundingBox" *ngFor="let box of getBoundingBoxes(); let i = index" [style.width]="getBoxWidth(i)" [style.height]="getBoxHeight(i)" [style.left]="getBoxX(i)" [style.top]="getBoxY(i)"></div>
+		<div class="moviePlayer">
+			<div class="playButton" (click)="setPlaying()"></div>
+			<div class="sliderContainer">
+				<input type="range" #sliderRange min="0" max="0" value="0" class="slider" #slider id="myRange" (input)="onSliderChange()">
+			</div>
+			<div class="indicatorContainerReview">
+				<div class="indicatorReview"></div>
+			</div>
+			<div class="status"><p>{{getStateText()}}</p></div>
+		</div>
+		<div class="topGradient">
+			<div class="dropdown">
+				<div class="viewPortMenu"></div>
+				<div class="dropdown-content">
+					<a href="#" (click)="toggleBoundingBoxes()">{{getBoxToggleText()}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

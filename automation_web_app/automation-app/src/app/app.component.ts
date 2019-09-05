@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
+import { ModelMain } from './Model/ModelMain'
 
 @Component({
-  selector    : 'app-root'            ,
-  templateUrl : './app.component.html',
-  styleUrls   : ['./app.component.css']
+	selector    : 'app-root'            ,
+	templateUrl : './app.component.html',
+	styleUrls: ['./app.component.css'],
+	providers: [ModelMain]
 })
+
 export class AppComponent {
 	private sidebarExpanded: boolean;
 
-	constructor()
+	constructor(private model: ModelMain)
     {
         console.log('Constructing Main App Component');
 
@@ -24,4 +27,13 @@ export class AppComponent {
 
 		this.sidebarExpanded = !this.sidebarExpanded;
 	}
+
+	public requestStateChange(): void
+	{
+		this.model.requestStateChange();
+	}
+
+	public getNavigationText(): string  { return this.model.getNavigationText	(); }
+	public isLive			(): boolean { return this.model.isLive				(); }
+	public isReview			(): boolean { return this.model.isReview			();	}
 }

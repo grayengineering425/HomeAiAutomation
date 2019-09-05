@@ -1,7 +1,7 @@
 import { Component, AfterViewChecked, ViewChild, ElementRef	} from '@angular/core';
 import { ModelPictorialIndex								} from '../model/ModelPictorialIndex'
 import { Recording											} from '../data/Recording'
-import { LiveFeedComponent									} from '../live-feed/live-feed.component'
+import { ReviewPlayerComponent								} from '../reviewplayer/reviewplayer.component';
 
 @Component({
   selector:		'app-pictorial-index',
@@ -11,8 +11,8 @@ import { LiveFeedComponent									} from '../live-feed/live-feed.component'
 })
 export class PictorialIndexComponent implements AfterViewChecked
 {
-	@ViewChild(LiveFeedComponent)	videoPlayer	: LiveFeedComponent;
-	@ViewChild('nameInput')			nameInput	: ElementRef;
+	@ViewChild(ReviewPlayerComponent)	videoPlayer: ReviewPlayerComponent;
+	@ViewChild('nameInput')				nameInput	: ElementRef;
 
 	private maskShowing		: boolean;
 	private currentRow		: number;

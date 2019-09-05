@@ -9,6 +9,14 @@
 	margin-top:			-32px;
 }
 
+.header h1
+{
+	position:	absolute;
+	left:		100px;
+	top:		-20px;
+	color:		black;
+}
+
 .dropdown
 {
 	right:				5%;

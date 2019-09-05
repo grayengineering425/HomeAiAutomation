@@ -1,21 +1,22 @@
 .mainArea
 {
-	position:			fixed;
-	width:				100%;
-	height:				100%;
-	margin-left:		-32px;
-	margin-top:			29px;
+	position:		fixed;
+	width:			100%;
+	height:			100%;
+	margin-left:	-32px;
+	margin-top:		29px;
 }
 
-.boundingBox {
+.boundingBox
+{
 	position: absolute;
-	left: 10px;
-	top: 10px;
-	width: 100px;
-	height: 100px;
-	border: 2px;
-	border-color: greenyellow;
-	border-style: solid;
+	left:			10px;
+	top:			10px;
+	width:			100px;
+	height:			100px;
+	border:			2px;
+	border-color:	greenyellow;
+	border-style:	solid;
 }
 
 .viewPort
@@ -28,19 +29,28 @@
 	height:				70%;
 	width:				60%;
 	margin-top:			-2%;
-	background-color:	gray;
+	background-color:	black;
 	background-size:	100%;
+}
+
+.viewPort p
+{
+	position:	absolute;
+	top:		50%;
+	left:		50%;
+	transform:	translate(-50%, -50%);
+	color: white;
 }
 
 .timeBox
 {
-  position:  relative;
-  left:      78%;
-  bottom:    15%;
-  height:    20px;
-  width:     150px;
-  color:     #000000;
-  font-size: 12px;
+	position:  relative;
+	left:      78%;
+	bottom:    15%;
+	height:    20px;
+	width:     150px;
+	color:     #000000;
+	font-size: 12px;
 }
 
 .dropdown
@@ -50,27 +60,37 @@
 	top		: 0%;
 	display	: inline-block;
 }
+
 .viewPortMenu
 {
-    height          : 50px;
-    width           : 50px;
-    background-color: pink;
+	width:			10%;
+	height:			10%;
+    content:		url('./assets/burger.png');
+	filter:			invert(100%);
+	transition:		0.2s;
 }
 
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 1;
+.viewPortMenu:hover
+{
+	filter: invert(70%);
 }
 
-.dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
+.dropdown-content
+{
+	display:			none;
+	position:			absolute;
+	background-color:	#f9f9f9;
+	min-width:			160px;
+	box-shadow:			0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index:			1;
+}
+
+.dropdown-content a
+{
+	color:				black;
+	padding:			12px 16px;
+	text-decoration:	none;
+	display:			block;
 }
 
 .dropdown:hover .dropdown-content
@@ -85,14 +105,14 @@
 	left:				0;
 	right:				0;
 	width:				100%;
-	/*background-color:	black;*/
 	background-image:	linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 84%);
 	height:				8%;
 	opacity:			0.0;
 	transition:			.5s ease;
 }
 
-.topGradient {
+.topGradient
+{
 	background-image:	linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(0,0,0,1) 84%);
 	position:			absolute;
 	top:				0;
@@ -184,6 +204,7 @@
 
 .slider
 {
+	-webkit-appearance: none;
 	margin:				0;
 	position:			absolute;
 	top:				50%;
@@ -200,8 +221,14 @@
 .slider::-webkit-slider-thumb
 {
 	-webkit-appearance: none;
-	width:				25px;
-	height:				25px;
-	background:			red;
+	width:				20px;
+	height:				20px;
+	background:			white;
 	cursor:				pointer;
+	border-radius:		10px;
+}
+
+.slider:hover
+{
+	opacity: 1.0;
 }

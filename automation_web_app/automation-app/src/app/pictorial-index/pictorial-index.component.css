@@ -3,6 +3,26 @@
 	box-sizing: border-box;
 }
 
+.recordingHeader
+{
+	position:	relative;
+	top:		50px;
+	color:		black;
+	left: 2%;
+}
+
+.splitter
+{
+	position:			relative;
+	top:				30px;
+	left:				0%;
+	height:				1px;
+	width:				98%;
+	left:				2%;
+	background-color:	black;
+	margin-bottom:		50px;
+}
+
 .column
 {
 	float	            : left;
@@ -11,6 +31,7 @@
     background-color    : red;
     margin              : 3% 1% 1% 1%;
     background-size     : cover;
+	cursor				: pointer;	
 }
 
 .row 
@@ -60,7 +81,13 @@
     top             : 0%;
     width           : 50px;
     height          : 50px;
-    background-color: red;
+	content			: url('./assets/cancel.png');
+	filter			: invert(70%);
+}
+
+.exitButton:hover
+{
+	filter: invert(100%);
 }
 
 .overlay
@@ -153,20 +180,27 @@
 	top:				50%;
 	left:				50%;
 	transform:			translate(-50%, -50%);
-	background-color:	white;
+	background-color:	oldlace;
 	width:				400px;
 	height:				300px;
+}
+
+.dialogTitle
+{
+	text-align: center;
+	color:		black;
 }
 
 .nameInput
 {
 	margin:				0;
 	position:			absolute;
-	top:				50%;
+	top:				40%;
 	left:				60%;
 	transform:			translate(-50%, -50%);
 	background-color:	lightgray;
 	color:				black;
+	font-family:		"Segoe UI";
 }
 
 .runNameLabel
@@ -174,7 +208,7 @@
 	color:		black;
 	margin:		0;
 	position:	absolute;
-	top:		50%;
+	top:		40%;
 	left:		20%;
 	transform:	translate(-50%, -50%);
 }

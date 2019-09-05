@@ -1,12 +1,13 @@
 <div class="header">
     <div class="dropdown" (click)="toggleSidebar()"></div>
+	<h1>Gray Home AI</h1>
 </div>
 <div id="sidebar">
-    <a href="#">Recordings	</a>
-    <a href="#">Friends		</a>
-    <a href="#">Github		</a>
-    <a href="#">Contact		</a>
+    <a href="#" (click)="requestStateChange()">{{getNavigationText()}}</a>
+    <a href="#">Friends</a>
+    <a href="https://github.com/grayengineering425/HomeAiAutomation">Github</a>
+    <a href="#">Contact</a>
 </div>
 
-<app-pictorial-index></app-pictorial-index>
-<!--app-live-feed live="true"></app-live-feed-->
+<app-pictorial-index	*ngIf="isReview()"></app-pictorial-index>
+<app-live-feed			*ngIf="isLive()"></app-live-feed>
