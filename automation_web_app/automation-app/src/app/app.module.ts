@@ -8,14 +8,16 @@ import { LiveFeedComponent			} from './live-feed/live-feed.component';
 import { FrameDataService			} from './frame-data.service';
 import { WorkerService				} from './worker.service';
 import { PictorialIndexComponent	} from './pictorial-index/pictorial-index.component';
-import { ReviewPlayerComponent		} from './reviewplayer/reviewplayer.component' 
+import { ReviewPlayerComponent		} from './reviewplayer/reviewplayer.component';
+import { FriendsComponent			} from './friends/friends.component' 
 
 @NgModule({
   declarations: [
 	AppComponent,
 	LiveFeedComponent,
 	PictorialIndexComponent,
-	ReviewPlayerComponent
+	ReviewPlayerComponent,
+	FriendsComponent
   ],
   imports: [
     BrowserModule,

@@ -51,3 +51,9 @@ def renameRecording(id, name):
 
     return jsonify({ 'success': success })
 
+#get list of friends
+@app.route('/Friends', methods=['GET'])
+def getFriends(id, name):
+    friends = server.getFriends()
+
+    return jsonify({ ''})

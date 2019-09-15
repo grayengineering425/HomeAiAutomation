@@ -5,6 +5,7 @@ export enum State
 {
 		Live
 	,	Review
+	,	Friends
 }
 
 @Injectable()
@@ -17,13 +18,16 @@ export class ModelMain
 		this.currentState = State.Review;
 	}
 
-	public requestStateChange(): void
+	public requestStateChange(state: State): void
 	{
-		if (this.currentState == State.Live)	this.currentState = State.Review;
-		else									this.currentState = State.Live;
+		if (this.currentState == state) return;
+
+		this.currentState = state;
 	}
 
 	public getNavigationText(): string	{ return this.currentState == State.Live ? "Recordings" : "Live";	}
+	public getState			(): State	{ return this.currentState;											}
 	public isLive			(): boolean { return this.currentState == State.Live;							}
 	public isReview			(): boolean { return this.currentState == State.Review;							}
+	public isFriends		(): boolean { return this.currentState == State.Friends;						}
 }

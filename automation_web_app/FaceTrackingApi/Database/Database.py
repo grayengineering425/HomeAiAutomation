@@ -2,9 +2,11 @@ import sqlite3
 import sys
 
 sys.path.append('../Recording')
+sys.path.append('../Friend')
 
 from TrackingImage  import TrackingImage
 from Recording      import Recording
+from Friend         import Friend
 from IDatabase      import IDatabase
 
 class SqlDatabase(IDatabase):
@@ -154,3 +156,25 @@ class SqlDatabase(IDatabase):
             conn.commit()
             conn.close()
             return True
+
+    def getFriends(self):
+        friends = []
+
+        conn   = sqlite3.connect(self.databasePath)
+        cursor = conn.cursor()
+
+        getFriendsQuery = """SELECT id, name, encoding, path, known
+                                  FROM FACE
+                                  WHERE known=1
+                                  GROUP BY id"""
+
+        rows = cursor.execute(getFriendsQuery)
+
+        for row in rows:
+            friend = Friend(row[0], row[1], row[2], row[3], row[4])
+
+            friends.append(friend)
+
+        conn.close()
+
+        return friends

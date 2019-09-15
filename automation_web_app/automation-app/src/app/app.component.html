@@ -4,10 +4,11 @@
 </div>
 <div id="sidebar">
     <a href="#" (click)="requestStateChange()">{{getNavigationText()}}</a>
-    <a href="#">Friends</a>
+    <a href="#" (click)="requestFriends()">Friends</a>
     <a href="https://github.com/grayengineering425/HomeAiAutomation">Github</a>
     <a href="#">Contact</a>
 </div>
 
-<app-pictorial-index	*ngIf="isReview()"></app-pictorial-index>
-<app-live-feed			*ngIf="isLive()"></app-live-feed>
+<app-pictorial-index	*ngIf="isReview()"	></app-pictorial-index>
+<app-live-feed			*ngIf="isLive()"	></app-live-feed>
+<app-friends			*ngIf="isFriends()"	></app-friends>

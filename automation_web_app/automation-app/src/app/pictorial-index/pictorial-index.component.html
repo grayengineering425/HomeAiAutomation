@@ -1,4 +1,4 @@
-<h1 class="recordingHeader">Recordings</h1>
+<h2 class="recordingHeader">Recordings</h2>
 <div class="splitter"></div>
 <div class="row" *ngFor="let row of getRecordingPreviews(); let i=index">
     <div class="column" *ngFor="let recording of row; let j = index" [ngStyle]="{'background-image': 'url(' + getFirstFrameData(i, j) + ')'}" (click)="loadRecording(i, j)">

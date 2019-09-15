@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ModelMain } from './Model/ModelMain'
+import { Component			} from '@angular/core';
+import { ModelMain, State	} from './Model/ModelMain'
 
 @Component({
 	selector    : 'app-root'            ,
@@ -30,10 +30,19 @@ export class AppComponent {
 
 	public requestStateChange(): void
 	{
-		this.model.requestStateChange();
+		var currentState = this.model.getState();
+
+		if (currentState == State.Live) this.model.requestStateChange(State.Review);
+		else							this.model.requestStateChange(State.Live  );
+	}
+
+	public requestFriends(): void
+	{
+		this.model.requestStateChange(State.Friends);
 	}
 
 	public getNavigationText(): string  { return this.model.getNavigationText	(); }
 	public isLive			(): boolean { return this.model.isLive				(); }
 	public isReview			(): boolean { return this.model.isReview			();	}
+	public isFriends		(): boolean { return this.model.isFriends			(); }
 }

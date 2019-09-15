@@ -12,6 +12,7 @@ from TrackingModel  import TrackingModel
 from TrackingImage  import TrackingImage
 from Database       import SqlDatabase
 from Recording      import Recording
+from Friend         import Friend
 
 class Server:
     def __init__(self, demo):
@@ -92,3 +93,12 @@ class Server:
         success = self.database.renameRecording(id, name)
 
         return success
+
+    def getFriends(self):
+        friends = self.database.getFriends()
+
+        friendsJson = []
+        for friend in friends:
+            friends.append(friend.toDict())
+
+        return friendsJson

@@ -8,18 +8,18 @@
 	position:	relative;
 	top:		50px;
 	color:		black;
-	left: 2%;
+	left:		2%;
 }
 
 .splitter
 {
 	position:			relative;
-	top:				30px;
+	top:				50px;
 	left:				0%;
-	height:				1px;
+	height:				1.0px;
 	width:				98%;
 	left:				2%;
-	background-color:	black;
+	background-color:	gray;
 	margin-bottom:		50px;
 }
 
