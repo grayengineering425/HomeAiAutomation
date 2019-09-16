@@ -78,7 +78,7 @@ void CameraSimulator::startCamera()
 
 		if (eventNewFrame) eventNewFrame(frame);
 		
-		std::this_thread::sleep_for(std::chrono::milliseconds(30));
+		std::this_thread::sleep_for(std::chrono::milliseconds(60));
 	}
 }
 

@@ -38,7 +38,7 @@ private:
 	cv::VideoCapture			cap;
 	std::string					windowName;
 
-	mutable std::mutex					mutex;
+	mutable std::mutex			mutex;
 };
 
 class CameraSimulator : public ICamera
