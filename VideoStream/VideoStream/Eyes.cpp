@@ -10,17 +10,14 @@
 Eyes::Eyes(Scheduler& s)
 	:	scheduler		(s)
 	,	cameraThread	(s)
-	,	camera			(std::make_unique<CameraSimulator>())
+	,	camera			(std::make_unique<Camera>())
 	,	connections		(std::make_unique<ConnectionManager>(s))
 	,	showImages		(false)
 
 {
 	if (camera) camera->eventNewFrame = [this](std::shared_ptr<Frame> frame)
 	{
-		scheduler.postMain([this, frame]
-		{
-			showLatestFrame(frame);
-		});
+		showLatestFrame(frame);
 	};
 }
 
@@ -30,10 +27,7 @@ void Eyes::open()
 {
 	if (!camera) return;
 
-	cameraThread.executeAsync([this]
-	{
-		camera->startCamera();
-	});
+	camera->startCamera();
 }
 
 void Eyes::close()

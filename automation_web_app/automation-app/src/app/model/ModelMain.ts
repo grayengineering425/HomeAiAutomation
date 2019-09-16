@@ -15,7 +15,7 @@ export class ModelMain
 
 	constructor()
 	{
-		this.currentState = State.Review;
+		this.currentState = State.Friends;
 	}
 
 	public requestStateChange(state: State): void

@@ -10,4 +10,9 @@ export class FriendsComponent
 	constructor()
 	{
 	}
+
+	public addFriend(): void
+	{
+		console.log("Adding new friend");
+	}
 }

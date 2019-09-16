@@ -44,7 +44,7 @@ export class FrameSourceSocket extends iFrameSource
 			)
 		);
 
-		this.active = true;
+		if (this.frameStream) this.active = true;
 	}
 
 	public stopFrames(): void

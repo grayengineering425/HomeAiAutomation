@@ -1,6 +1,6 @@
 <div class="mainArea">
     <div class="viewPort" #viewPort [ngStyle]="{'background-image': 'url(' + getCurrentFrameData() + ')'}">
-		<p>Something seems to have gone wrong...</p>
+		<p *ngIf="!sourceActive()">Something seems to have gone wrong...</p>
         <div class="moviePlayer">
             <div class="playButton" (click)="setPlaying()"></div>
             <div class="indicatorContainer">

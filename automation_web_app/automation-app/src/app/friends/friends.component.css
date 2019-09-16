@@ -1,0 +1,89 @@
+*
+{
+	box-sizing: border-box;
+}
+
+.friendsHeader
+{
+	position:	relative;
+	top:		50px;
+	color:		black;
+	left:		2%;
+}
+
+.splitter
+{
+	position:			relative;
+	top:				50px;
+	left:				0%;
+	height:				1.0px;
+	width:				98%;
+	left:				2%;
+	background-color:	gray;
+	margin-bottom:		50px;
+}
+
+
+.column
+{
+	float	            : left;
+	width	            : 256px;
+    height              : 256px;
+    background-color    : black;
+    margin              : 3% 1% 1% 1%;
+    background-size     : cover;
+}
+
+.row 
+{
+    margin: 10px;
+}
+
+.row::after
+{
+	content	: "";
+	clear	: both;
+	display	: table;
+}
+
+.column, img
+{
+	max-width : 100%;
+	max-height: 100%;
+}
+
+.addFriend
+{
+	margin:				0;
+	position:			relative;
+	top:				50%;
+	left:				50%;
+	transform:			translate(-50%, -50%);
+	width:				20%;
+	height:				20%;
+    content:            url('assets/plus.png');
+    filter:             invert(100%);
+}
+
+.fileOverlay
+{
+	margin:				0;
+    opacity:            0.0;
+	position:			relative;
+	top:				50%;
+	left:				50%;
+	transform:			translate(-50%, 100%);
+	width:				20%;
+	height:				20%;
+	cursor:             pointer;
+}
+
+.addFriendText
+{
+	margin:				0;
+	position:			relative;
+	top:				55%;
+	left:				85%;
+	transform:			translate(-50%, -250%);
+    color:              white;
+}

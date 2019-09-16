@@ -16,15 +16,13 @@ export class ModelLive
 	private frameSource				: iFrameSource
 	private playing					: boolean;
 	private run						: Array<Frame>;
-	private currentFrameIndex		: number;
 
 	constructor(wsService: WebsocketService)
     {
         console.log("Constructing ModelLive");
 
 		this.run				= new Array<Frame>();
-		this.playing			= false;
-		this.currentFrameIndex	= 0;
+		this.playing			= true;
 		
 		this.frameSource = new FrameSourceSocket(wsService);
 		this.frameSource.startFrames();
@@ -65,7 +63,7 @@ export class ModelLive
 	
 	//GETTERS
 	public getCurrentFrameData	    ()				: string				{ return this.currentFrame ? this.currentFrame.data : "";														}
-    public sourceActive             ()				: boolean				{ return this.frameSource.isActive();																			}
+    public sourceActive             ()				: boolean				{ return this.currentFrame;																						}
 	public getCurrentFrameTimeStamp	()				: string				{ return this.currentFrame ? this.currentFrame.timeStamp : "";													}
 	public getBoxes					()				: Array<BoundingBox>	{ return this.currentFrame ? this.currentFrame.boundingBoxes : new Array<BoundingBox>();						}
 	public getBoxByIndex			(index: number) : BoundingBox			{ return this.currentFrame.boundingBoxes[index];																}
