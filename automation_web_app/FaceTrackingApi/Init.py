@@ -15,10 +15,10 @@ server  = Server (demo       )
 def frame():
     if not request.json or not 'data' in request.json:
          return jsonify({'success': False}), 400
-
+    
     data        = request.json['data']
     timeStamp   = str(datetime.datetime.now())
-
+    
     server.onNewFrame(data, timeStamp)
 
     return jsonify({'success': True}), 201
@@ -52,8 +52,23 @@ def renameRecording(id, name):
     return jsonify({ 'success': success })
 
 #get list of friends
-@app.route('/Friends', methods=['GET'])
-def getFriends(id, name):
+@app.route('/Friend', methods=['GET'])
+def getFriends():
     friends = server.getFriends()
 
-    return jsonify({ ''})
+    return jsonify({'friends': friends})
+
+#post new friend
+@app.route('/Friend', methods=['POST'])
+def postFriend():
+    if not request.json:
+        return jsonify({'success': False}), 400
+
+    print("here")
+    name            = request.json['name'           ]
+    relationship    = request.json['relationship'   ]
+    data            = request.json['data'           ]
+    
+    server.addNewFriend(name, relationship, data)
+
+    return jsonify({'success': True}), 201

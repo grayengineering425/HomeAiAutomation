@@ -99,6 +99,13 @@ class Server:
 
         friendsJson = []
         for friend in friends:
-            friends.append(friend.toDict())
+            friendsJson.append(friend.toDict())
 
         return friendsJson
+
+    def addNewFriend(self, name, relationship, data):
+        encoding = "1,2,3,4,5";         #TODO: ADD FACE RECOGNITION MODEL
+
+        success = self.database.addFriend(name, relationship, data, encoding);
+
+        return success

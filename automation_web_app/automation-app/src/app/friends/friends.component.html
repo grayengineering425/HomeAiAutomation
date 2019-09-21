@@ -2,17 +2,21 @@
 <div class="splitter"></div>
 <div class="row">
     <div class="column">
-        <div class="addFriend">
-
-        </div>
-        <input class="fileOverlay" type="file" accept="image/*" (change)="addFriend(file)"/>
+        <div class="addFriend"></div>
+        <input class="fileOverlay" type="file" accept="image/*" (change)="addFriend($event)" />
         <p class="addFriendText">Add Friend</p>
     </div>
-    <!--div class="column" *ngFor="let recording of row; let j = index" [ngStyle]="{'background-image': 'url(' + getFirstFrameData(i, j) + ')'}" (click)="loadRecording(i, j)">
-		<div class="overlay">
-			<div class="overlayText">Name: {{getRunName(i, j)}}<br />Length: {{getRunLength(i, j)}}</div>
-			<div class="deleteButton" (click)="deleteRecording(i, j);$event.stopPropagation()"><p>Delete</p></div>
-			<div class="editButton" (click)="startEditRecording(i, j);$event.stopPropagation()"></div>
-		</div>
-	</!--div-->
+    <div class="column" *ngFor="let friend of getFriends(); let i = index" [ngStyle]="{'background-image': 'url(' + getFriendData(i) + ')'}">
+
+
+    </div>
+
+    <div class="mask" *ngIf="isFriendLoaded()">
+        <div class="friendPreviewPanel">
+            <div class="friendPreview" [ngStyle]="{'background-image': 'url(' + getNewFriendData() + ')'}"></div>
+            <div class="acceptButton" (click)="saveFriend()"><p>Save</p>   </div>
+            <div class="deleteButton" (click)="exit()"      ><p>Discard</p></div>
+        </div>
+        <div class="exitButton" (click)="exit()"></div>
+    </div>
 </div>

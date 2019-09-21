@@ -16,10 +16,14 @@ export class FrameDataService {
 	//GET
 	public getRecordingPreviews	()			{ return this.http.get	 (this.accessPointUrl + '/RecordingPreviews');					}
 	public getRecording			(id)		{ return this.http.get	 (this.accessPointUrl + '/Recording/' + id	);					}
-
+	public getFriends			()			{ return this.http.get	 (this.accessPointUrl + '/Friend'			);					}
+	
 	//DELETE
 	public deleteRecording		(id)		{ return this.http.delete(this.accessPointUrl + '/Recording/' + id	);					}
 
 	//PATCH
 	public updateRecordingName	(id, name)	{ return this.http.patch(this.accessPointUrl + '/Recording/' + id + '/' + name, "");	}
+
+	//POST
+	public postFriend			(data)		{ return this.http.post	(this.accessPointUrl + '/Friend', data);						}
 }

@@ -7,11 +7,10 @@ sys.path.append('../Friend')
 from TrackingImage  import TrackingImage
 from Recording      import Recording
 from Friend         import Friend
-from IDatabase      import IDatabase
 
-class SqlDatabase(IDatabase):
+class SqlDatabase():
     def __init__(self):
-        self.databasePath = "C:/HomeAiAutomation/automation_web_app/FaceTrackingApi/Database/FaceTracking.db"             #TODO, not sure how relative paths work in python...
+        self.databasePath = "C:/modules/HomeAiAutomation/automation_web_app/FaceTrackingApi/Database/FaceTracking.db"             #TODO, not sure how relative paths work in python...
 
     def addNewFrame(self, frame):
         conn    = sqlite3.connect(self.databasePath)
@@ -90,8 +89,6 @@ class SqlDatabase(IDatabase):
             recording.name  = rows[0][1]
 
         for row in rows:
-            #print(row)
-            
             frame = TrackingImage(row[3], row[4])
             
             x       = row[5]
@@ -163,10 +160,10 @@ class SqlDatabase(IDatabase):
         conn   = sqlite3.connect(self.databasePath)
         cursor = conn.cursor()
 
-        getFriendsQuery = """SELECT id, name, encoding, path, known
-                                  FROM FACE
-                                  WHERE known=1
-                                  GROUP BY id"""
+        getFriendsQuery = """SELECT fr.id, fr.name, fr.relationship, fa.data, fa.encoding
+                                  FROM FRIEND as fr
+                                  INNER JOIN FACE as fa ON fa.id = fr.face
+                                  GROUP BY fr.id"""
 
         rows = cursor.execute(getFriendsQuery)
 
@@ -178,3 +175,22 @@ class SqlDatabase(IDatabase):
         conn.close()
 
         return friends
+
+    def addFriend(self, name, relationship, data, encoding):
+        conn   = sqlite3.connect(self.databasePath)
+        cursor = conn.cursor()
+
+        addFaceQuery = "INSERT INTO FACE (data, encoding) VALUES('" + data + "', '" + encoding + "')"
+        
+        cursor.execute(addFaceQuery)
+
+        faceId = cursor.lastrowid
+
+        addFriendQuery = "INSERT INTO FRIEND (name, relationship, face) VALUES('" + name + "', '" + relationship + "'" + ", " + str(faceId) + ")"
+
+        cursor.execute(addFriendQuery)
+        
+        conn.commit()
+        conn.close ()
+
+        return True

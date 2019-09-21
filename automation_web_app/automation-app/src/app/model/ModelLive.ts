@@ -63,7 +63,7 @@ export class ModelLive
 	
 	//GETTERS
 	public getCurrentFrameData	    ()				: string				{ return this.currentFrame ? this.currentFrame.data : "";														}
-    public sourceActive             ()				: boolean				{ return this.currentFrame;																						}
+    public sourceActive             ()				: boolean				{ return this.currentFrame != null;																				}
 	public getCurrentFrameTimeStamp	()				: string				{ return this.currentFrame ? this.currentFrame.timeStamp : "";													}
 	public getBoxes					()				: Array<BoundingBox>	{ return this.currentFrame ? this.currentFrame.boundingBoxes : new Array<BoundingBox>();						}
 	public getBoxByIndex			(index: number) : BoundingBox			{ return this.currentFrame.boundingBoxes[index];																}
